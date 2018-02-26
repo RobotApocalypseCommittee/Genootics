@@ -1,16 +1,18 @@
 package com.bekos.genootics.items;
 
 import com.bekos.genootics.GenooticsMod;
+import com.bekos.genootics.client.GenooticsTab;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
 public class ItemBase extends Item {
-    protected String name;
+    String name;
 
     public ItemBase(String name) {
         this.name = name;
         setUnlocalizedName(GenooticsMod.MODID + '.' + name);
         setRegistryName(name);
+        setCreativeTab(GenooticsMod.creativeTab);
     }
 
     public void registerItemModel() {

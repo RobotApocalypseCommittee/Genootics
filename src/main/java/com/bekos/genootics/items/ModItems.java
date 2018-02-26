@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class ModItems {
-    private static ItemSyringe itemSyringe = new ItemSyringe();
+    public static ItemSyringe itemSyringe = new ItemSyringe();
 
     public static void register(IForgeRegistry<Item> registry) {
         registry.registerAll(

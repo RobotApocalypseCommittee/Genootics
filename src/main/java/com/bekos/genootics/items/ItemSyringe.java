@@ -21,7 +21,6 @@ public class ItemSyringe extends ItemBase {
 
     public ItemSyringe() {
         super("itemSyringe");
-        this.setCreativeTab(CreativeTabs.BREWING); //TEMPORARY
     }
 
     @SideOnly(Side.CLIENT)

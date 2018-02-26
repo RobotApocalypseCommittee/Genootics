@@ -18,6 +18,7 @@
 
 package com.bekos.genootics;
 
+import com.bekos.genootics.client.GenooticsTab;
 import com.bekos.genootics.items.ItemSyringe;
 import com.bekos.genootics.items.ModItems;
 import com.bekos.genootics.proxies.CommonProxy;
@@ -40,6 +41,8 @@ public class GenooticsMod {
 
     @SidedProxy(serverSide = "com.bekos.genootics.proxies.CommonProxy", clientSide = "com.bekos.genootics.proxies.ClientProxy")
     public static CommonProxy proxy;
+
+    public static final GenooticsTab creativeTab = new GenooticsTab();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
