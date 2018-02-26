@@ -41,21 +41,6 @@ public class GenooticsMod {
     @SidedProxy(serverSide = "com.bekos.genootics.proxies.CommonProxy", clientSide = "com.bekos.genootics.proxies.ClientProxy")
     public static CommonProxy proxy;
 
-    //Item registerer
-    @Mod.EventBusSubscriber
-    public static class RegistrationHandler {
-
-        @SubscribeEvent
-        public static void registerItems(RegistryEvent.Register<Item> event) {
-            ModItems.register(event.getRegistry());
-        }
-
-        @SubscribeEvent
-        public static void registerItems(ModelRegistryEvent event) {
-            ModItems.registerModels();
-        }
-    }
-
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
     }
