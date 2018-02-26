@@ -5,7 +5,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 public class ModItems {
 
-    public static ItemSyringe itemSyringe = new ItemSyringe();
+    private static ItemSyringe itemSyringe = new ItemSyringe();
 
     public static void register(IForgeRegistry<Item> registry) {
         registry.registerAll(
@@ -14,5 +14,6 @@ public class ModItems {
     }
 
     public static void registerModels() {
+        itemSyringe.registerItemModel();
     }
 }
