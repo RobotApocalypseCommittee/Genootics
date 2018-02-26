@@ -1,7 +1,6 @@
-package com.bekos.genootics.block;
+package com.bekos.genootics.blocks;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
 
 public class BlockExtractor extends BlockBase {
 

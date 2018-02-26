@@ -1,6 +1,5 @@
-package com.bekos.genootics.block;
+package com.bekos.genootics.blocks;
 
-import com.bekos.genootics.items.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
