@@ -2,7 +2,12 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "all": "genootics:blocks/machine_extractor"
+      "east": "genootics:blocks/machinevents",
+      "west": "genootics:blocks/machinevents",
+      "north": "genootics:blocks/machineextractorfront",
+      "south": "genootics:blocks/machinefan",
+      "up": "genootics:blocks/machineextractortop",
+      "down": "genootics:blocks/machinebase"
     }
   },
   "variants": {
