@@ -1,4 +1,4 @@
-package com.bekos.genootics.block;
+package com.bekos.genootics.blocks;
 
 import com.bekos.genootics.GenooticsMod;
 import net.minecraft.block.Block;
@@ -7,7 +7,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 
-public class BlockBase extends Block{
+public class BlockBase extends Block {
     protected String name;
 
     public BlockBase(Material material, String name) {
@@ -17,6 +17,14 @@ public class BlockBase extends Block{
 
         setUnlocalizedName(name);
         setRegistryName(name);
+        setCreativeTab(GenooticsMod.creativeTab);
+    }
+
+    public BlockBase(Material material, String name, float hardness, float resistance) {
+        this(material, name);
+
+        setHardness(hardness);
+        setResistance(resistance);
     }
 
     public void registerItemModel(Item itemBlock) {
