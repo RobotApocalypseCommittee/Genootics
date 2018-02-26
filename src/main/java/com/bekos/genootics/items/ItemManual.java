@@ -7,6 +7,5 @@ public class ItemManual extends ItemBase {
 
     public ItemManual() {
         super("itemManual");
-        this.setCreativeTab(CreativeTabs.BREWING); //TEMPORARY
     }
 }
