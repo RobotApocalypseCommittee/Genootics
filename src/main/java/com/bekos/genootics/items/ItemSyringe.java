@@ -43,13 +43,13 @@ public class ItemSyringe extends ItemBase {
     }
 
     private boolean isBloody(ItemStack stack) {
-        return getTagCompoundSafe(stack).hasKey("bloody");
+        return getTagCompoundSafe(stack).hasKey("Bloody");
     }
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer playerIn, EnumHand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
-        boolean isPlayer = !getTagCompoundSafe(stack).hasKey("nonPlayer");
+        boolean isPlayer = !getTagCompoundSafe(stack).hasKey("NonPlayer");
         if (!world.isRemote && isPlayer) {
             if (isBloody(stack)) {
                 setClean(stack);
@@ -62,17 +62,17 @@ public class ItemSyringe extends ItemBase {
                 }
             }
         } else if (!isPlayer) {
-            getTagCompoundSafe(stack).removeTag("nonPlayer");
+            getTagCompoundSafe(stack).removeTag("NonPlayer");
         }
         return new ActionResult<>(EnumActionResult.SUCCESS, stack);
     }
 
     private void setBloody(ItemStack stack) {
-        getTagCompoundSafe(stack).setBoolean("bloody", true);
+        getTagCompoundSafe(stack).setBoolean("Bloody", true);
     }
 
     private void setClean(ItemStack stack) {
-        getTagCompoundSafe(stack).removeTag("bloody");
+        getTagCompoundSafe(stack).removeTag("Bloody");
     }
 
     @Override
@@ -88,7 +88,7 @@ public class ItemSyringe extends ItemBase {
         if (!isBloody(stack)) {
             entityIn.attackEntityFrom(DamageSource.GENERIC, 5);
             setBloody(stack);
-            getTagCompoundSafe(stack).setBoolean("nonPlayer", true);
+            getTagCompoundSafe(stack).setBoolean("NonPlayer", true);
         } else {
             return false;
         }
