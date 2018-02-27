@@ -6,6 +6,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class ModBlocks {
@@ -15,6 +16,7 @@ public class ModBlocks {
         registry.registerAll(
                 machineExtractor
         );
+        GameRegistry.registerTileEntity(machineExtractor.getTileEntityClass(), machineExtractor.getRegistryName().toString());
     }
 
     public static void registerItemBlocks(IForgeRegistry<Item> registry) {
