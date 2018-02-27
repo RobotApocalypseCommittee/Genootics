@@ -15,7 +15,7 @@ public class BlockBase extends Block {
 
         this.name = name;
 
-        setUnlocalizedName(name);
+        setUnlocalizedName(GenooticsMod.MODID + '.' + name);
         setRegistryName(name);
         setCreativeTab(GenooticsMod.creativeTab);
     }

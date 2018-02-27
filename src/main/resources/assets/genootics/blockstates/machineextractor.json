@@ -7,7 +7,8 @@
       "north": "genootics:blocks/machineextractorfront",
       "south": "genootics:blocks/machinefan",
       "up": "genootics:blocks/machineextractortop",
-      "down": "genootics:blocks/machinebase"
+      "down": "genootics:blocks/machinebase",
+      "particle": "genootics:blocks/machinebase"
     }
   },
   "variants": {

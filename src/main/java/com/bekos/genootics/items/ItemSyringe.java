@@ -4,10 +4,9 @@ import com.bekos.genootics.GenooticsMod;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumActionResult;
@@ -47,27 +46,54 @@ public class ItemSyringe extends ItemBase {
         return getTagCompoundSafe(stack).hasKey("bloody");
     }
 
-    private NBTTagCompound getTagCompoundSafe(ItemStack stack) {
-        NBTTagCompound tagCompound = stack.getTagCompound();
-        if (tagCompound == null) {
-            tagCompound = new NBTTagCompound();
-            stack.setTagCompound(tagCompound);
-        }
-        return tagCompound;
-    }
-
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer playerIn, EnumHand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
-        if (!world.isRemote) {
+        boolean isPlayer = !getTagCompoundSafe(stack).hasKey("nonPlayer");
+        if (!world.isRemote && isPlayer) {
             if (isBloody(stack)) {
-                getTagCompoundSafe(stack).removeTag("bloody");
+                setClean(stack);
             } else {
-                getTagCompoundSafe(stack).setBoolean("bloody", true);
-                playerIn.attackEntityFrom(DamageSource.GENERIC, 10);
+                if (!(playerIn.getHealth() <= 10) && !playerIn.isCreative()) {
+                    setBloody(stack);
+                    playerIn.attackEntityFrom(DamageSource.GENERIC, 10);
+                } else {
+                    return new ActionResult<>(EnumActionResult.FAIL, stack);
+                }
             }
+        } else if (!isPlayer) {
+            getTagCompoundSafe(stack).removeTag("nonPlayer");
         }
         return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+    }
+
+    private void setBloody(ItemStack stack) {
+        getTagCompoundSafe(stack).setBoolean("bloody", true);
+    }
+
+    private void setClean(ItemStack stack) {
+        getTagCompoundSafe(stack).removeTag("bloody");
+    }
+
+    @Override
+    public boolean itemInteractionForEntity(ItemStack itemStack, EntityPlayer playerIn, EntityLivingBase entityIn, EnumHand hand) {
+        if (entityIn.world.isRemote)
+        {
+            return false;
+        }
+
+        //BlockPos pos = new BlockPos(entityIn.posX, entityIn.posY, entityIn.posZ);
+        ItemStack stack = playerIn.getHeldItem(hand);
+
+        if (!isBloody(stack)) {
+            entityIn.attackEntityFrom(DamageSource.GENERIC, 5);
+            setBloody(stack);
+            getTagCompoundSafe(stack).setBoolean("nonPlayer", true);
+        } else {
+            return false;
+        }
+
+        return true;
     }
 
 }

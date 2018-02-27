@@ -1,1 +1,3 @@
-item.itemSyringe.name=Syringe
+item.genootics.itemSyringe.name=Blood Syringe
+item.genootics.itemManual.name=Genetics Manual
+tile.genootics.machineExtractor.name=DNA Extractor
