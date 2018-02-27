@@ -29,7 +29,6 @@ public abstract class BlockMachine<TE extends TileEntity> extends BlockBase impl
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
     }
 
-    public abstract boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ);
 
     public abstract Class<TE> getTileEntityClass();
 
