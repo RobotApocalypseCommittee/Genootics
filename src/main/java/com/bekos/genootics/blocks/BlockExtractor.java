@@ -22,10 +22,10 @@ public class BlockExtractor extends BlockMachine<TileExtractor> {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (!world.isRemote){
             TextComponentString component = new TextComponentString("HELLO");
-            player.sendStatusMessage(component, false);
+            playerIn.sendStatusMessage(component, false);
         }
         System.out.print("OK");
         return true;
