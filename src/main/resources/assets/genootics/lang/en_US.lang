@@ -1,3 +1,10 @@
 item.genootics.itemSyringe.name=Blood Syringe
 item.genootics.itemManual.name=Genetics Manual
+
 tile.genootics.machineExtractor.name=DNA Extractor
+
+commands.genootics.summon_gm.usage=summon_gm <LivingEntity> [<Genes>]
+commands.genootics.summon_gm.outOfWorld=Cannot summon the object out of the world
+commands.genootics.summon_gm.failed=Unable to summon object
+commands.genootics.summon_gm.success=Object successfully summoned
+commands.genootics.summon_gm.tagError=Gene formatting invalid! Usage: {Genes:[{Gene:MovementSpeed,Value:0.4},{...},...]}
