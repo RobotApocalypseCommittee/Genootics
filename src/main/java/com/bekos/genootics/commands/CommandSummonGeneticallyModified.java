@@ -3,6 +3,7 @@ package com.bekos.genootics.commands;
 import com.bekos.genootics.GenooticsMod;
 import com.bekos.genootics.genetics.GeneticsBase;
 import com.bekos.genootics.genetics.GeneticsProvider;
+import com.bekos.genootics.util.NBTParser;
 import com.google.common.collect.Lists;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -101,18 +102,11 @@ public class CommandSummonGeneticallyModified extends CommandBase {
 
                 try {
                     NBTTagCompound geneCompound = JsonToNBT.getTagFromJson(args[1]);
-                    Iterator iterator = geneCompound.getTagList("Genes", Constants.NBT.TAG_COMPOUND).iterator();
-
-                    while (iterator.hasNext()) {
-                        NBTTagCompound singleGeneCompound = (NBTTagCompound) iterator.next();
-                        geneMap.put(singleGeneCompound.getString("Gene"), singleGeneCompound.getDouble("Value"));
-                    }
+                    geneMap = NBTParser.convertNBTToMap(geneCompound.getTagList("Genes", Constants.NBT.TAG_COMPOUND));
 
                 } catch (NBTException e) {
                     throw new CommandException("commands.genootics.summon_gm.tagError", new Object[] {e.getMessage()});
                 }
-
-                System.out.println(geneMap);
 
                 entityGenetics.setGenes(geneMap);
             }

@@ -19,7 +19,7 @@ public class GeneticsBase implements IGenetics {
 
     @Override
     public Map<String, Double> getAllGenes() {
-        return new HashMap<>();
+        return genes;
     }
 
     @Override

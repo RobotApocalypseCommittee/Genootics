@@ -1,16 +1,20 @@
 package com.bekos.genootics.item;
 
 import com.bekos.genootics.GenooticsMod;
+import com.bekos.genootics.genetics.GeneticsBase;
+import com.bekos.genootics.genetics.GeneticsProvider;
+import com.bekos.genootics.util.NBTParser;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
@@ -46,6 +50,34 @@ public class ItemSyringe extends ItemBase {
         return getTagCompoundSafe(stack).hasKey("Bloody");
     }
 
+    private void setBloody(ItemStack stack) {
+        getTagCompoundSafe(stack).setBoolean("Bloody", true);
+    }
+
+    private void setClean(ItemStack stack) {
+        getTagCompoundSafe(stack).removeTag("Bloody");
+    }
+
+    private void setBloodEntity(ItemStack stack, EntityLivingBase entity) {
+        ResourceLocation entityResource = EntityList.getKey(entity);
+        getTagCompoundSafe(stack).setString("Entity", entityResource == null ? "player:"+entity.getName() : entityResource.toString());
+    }
+
+    private void setBloodGeneInformation(ItemStack stack, EntityLivingBase entity) {
+        GeneticsBase entityGenetics = (GeneticsBase) entity.getCapability(GeneticsProvider.GENETICS_CAPABILITY, null);
+        NBTTagList geneList = NBTParser.convertMapToNBT(entityGenetics.getAllGenes());
+
+        getTagCompoundSafe(stack).setTag("EntityGenes", geneList);
+    }
+
+    private void clearBloodEntity(ItemStack stack) {
+        getTagCompoundSafe(stack).removeTag("Entity");
+    }
+
+    private void clearBloodGeneInformation(ItemStack stack) {
+        getTagCompoundSafe(stack).removeTag("EntityGenes");
+    }
+
     @Override
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer playerIn, EnumHand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
@@ -53,9 +85,13 @@ public class ItemSyringe extends ItemBase {
         if (!world.isRemote && isPlayer) {
             if (isBloody(stack)) {
                 setClean(stack);
+                clearBloodEntity(stack);
+                clearBloodGeneInformation(stack);
             } else {
                 if (!(playerIn.getHealth() <= 10) && !playerIn.isCreative()) {
                     setBloody(stack);
+                    setBloodEntity(stack, playerIn);
+                    setBloodGeneInformation(stack, playerIn);
                     playerIn.attackEntityFrom(DamageSource.GENERIC, 10);
                 } else {
                     return new ActionResult<>(EnumActionResult.FAIL, stack);
@@ -65,14 +101,6 @@ public class ItemSyringe extends ItemBase {
             getTagCompoundSafe(stack).removeTag("NonPlayer");
         }
         return new ActionResult<>(EnumActionResult.SUCCESS, stack);
-    }
-
-    private void setBloody(ItemStack stack) {
-        getTagCompoundSafe(stack).setBoolean("Bloody", true);
-    }
-
-    private void setClean(ItemStack stack) {
-        getTagCompoundSafe(stack).removeTag("Bloody");
     }
 
     @Override
@@ -88,6 +116,8 @@ public class ItemSyringe extends ItemBase {
         if (!isBloody(stack)) {
             entityIn.attackEntityFrom(DamageSource.GENERIC, 5);
             setBloody(stack);
+            setBloodEntity(stack, entityIn);
+            setBloodGeneInformation(stack, entityIn);
             getTagCompoundSafe(stack).setBoolean("NonPlayer", true);
         } else {
             return false;

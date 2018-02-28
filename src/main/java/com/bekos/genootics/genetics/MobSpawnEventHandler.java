@@ -60,9 +60,22 @@ public class MobSpawnEventHandler {
 
             attributes.appendTag(newCompound);
 
+            /*NBTTagList attributes = new NBTTagList();
+            NBTTagCompound newCompound = new NBTTagCompound();
+            newCompound.setDouble("Base", speed);
+            newCompound.setString("Name", "generic.movementSpeed");
+            attributes.appendTag(newCompound); TODO Is this a viable replacement?*/
+
             compound.setTag("Attributes", attributes);
 
             entity.readEntityFromNBT(compound);
         }
+    }
+
+    public static void handleGeneric(EntityLiving entity) {
+        GeneticsBase entityGenetics = (GeneticsBase) entity.getCapability(GeneticsProvider.GENETICS_CAPABILITY, null);
+
+        NBTTagCompound compound = new NBTTagCompound();
+        entity.writeEntityToNBT(compound);
     }
 }
