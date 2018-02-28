@@ -14,9 +14,9 @@ public class TileMachine extends TileEntity {
 
     private ItemStackHandler itemStackHandler;
 
-    public TileMachine(){
+    public TileMachine(int itemSize){
         super();
-        System.out.println("Init TileMachine");
+        this.SIZE = itemSize;
         // This item handler will hold our nine inventory slots
         this.itemStackHandler = new ItemStackHandler(this.SIZE) {
             @Override
