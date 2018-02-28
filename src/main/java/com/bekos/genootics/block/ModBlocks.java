@@ -1,4 +1,4 @@
-package com.bekos.genootics.blocks;
+package com.bekos.genootics.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -6,7 +6,6 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 
 public class ModBlocks {

@@ -19,17 +19,29 @@ public class MobSpawnEventHandler {
         if(event.getEntity() instanceof EntityLiving && !(event.getEntity() instanceof EntityPlayer)) {
             EntityLiving entity = (EntityLiving) event.getEntity();
 
-            NBTTagCompound compound = new NBTTagCompound();
-            entity.writeEntityToNBT(compound);
+            GeneticsBase entityGenetics = (GeneticsBase) entity.getCapability(GeneticsProvider.GENETICS_CAPABILITY, null);
 
-            if (!compound.hasKey("GeneticallyModified")) {
+            if (!entityGenetics.isGM()) {
                 return;
             }
+
+            Double health = entityGenetics.getGeneValue("Health");
+            Double speed = entityGenetics.getGeneValue("MovementSpeed");
+
+            if (health == null) {
+                health = 5d;
+            }
+            if (speed == null) {
+                speed = 5d;
+            }
+
+            NBTTagCompound compound = new NBTTagCompound();
+            entity.writeEntityToNBT(compound);
 
             //Makes them have 5 health and sets their movement speed to a VERY large number (hehe)
             //This is not how it will stay, but at least for now it's a calm day
 
-            compound.setFloat("Health", 5f);
+            compound.setDouble("Health", health);
 
             NBTTagList attributes = compound.getTagList("Attributes", Constants.NBT.TAG_COMPOUND);
             Iterator<NBTBase> iterator = attributes.iterator();
@@ -43,7 +55,7 @@ public class MobSpawnEventHandler {
             }
 
             NBTTagCompound newCompound = new NBTTagCompound();
-            newCompound.setDouble("Base", 10d);
+            newCompound.setDouble("Base", speed);
             newCompound.setString("Name", "generic.movementSpeed");
 
             attributes.appendTag(newCompound);

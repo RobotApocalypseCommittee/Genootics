@@ -1,4 +1,4 @@
-package com.bekos.genootics.blocks;
+package com.bekos.genootics.block;
 
 import com.bekos.genootics.GenooticsMod;
 import net.minecraft.block.Block;

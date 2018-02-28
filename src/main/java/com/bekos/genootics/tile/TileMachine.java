@@ -10,17 +10,23 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class TileMachine extends TileEntity {
     // Number of itemstacks stored.
-    public static final int SIZE = 3;
+    public static int SIZE;
 
-    // This item handler will hold our nine inventory slots
-    private ItemStackHandler itemStackHandler = new ItemStackHandler(SIZE) {
-        @Override
-        protected void onContentsChanged(int slot) {
-            // We need to tell the tile entity that something has changed so
-            // that the chest contents is persisted
-            markDirty();
-        }
-    };
+    private ItemStackHandler itemStackHandler;
+
+    public TileMachine(int itemSize){
+        super();
+        this.SIZE = itemSize;
+        // This item handler will hold our nine inventory slots
+        this.itemStackHandler = new ItemStackHandler(this.SIZE) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                // We need to tell the tile entity that something has changed so
+                // that the chest contents is persisted
+                markDirty();
+            }
+        };
+    }
 
 
 
