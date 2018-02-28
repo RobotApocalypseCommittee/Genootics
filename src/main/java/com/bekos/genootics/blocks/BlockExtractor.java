@@ -15,26 +15,15 @@ import net.minecraft.world.World;
 
 import java.io.Console;
 
-public class BlockExtractor extends BlockMachine<TileExtractor> {
+public class BlockExtractor extends BlockMachine {
+
+    public static final int GUI_ID = 1;
 
     public BlockExtractor() {
         super("machineExtractor");
     }
 
-    @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (!world.isRemote){
-            TextComponentString component = new TextComponentString("HELLO");
-            playerIn.sendStatusMessage(component, false);
-        }
-        System.out.print("OK");
-        return true;
-    }
 
-    @Override
-    public Class<TileExtractor> getTileEntityClass() {
-        return TileExtractor.class;
-    }
 
     @Nullable
     @Override
@@ -42,9 +31,9 @@ public class BlockExtractor extends BlockMachine<TileExtractor> {
         return new TileExtractor();
     }
 
-    @javax.annotation.Nullable
     @Override
-    public TileExtractor createTileEntity(World world, IBlockState state) {
-        return new TileExtractor();
+    public boolean checkTileEntity(TileEntity te) {
+        return te instanceof TileExtractor;
     }
+
 }

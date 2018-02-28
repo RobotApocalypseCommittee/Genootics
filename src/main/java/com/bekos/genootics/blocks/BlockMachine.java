@@ -1,5 +1,6 @@
 package com.bekos.genootics.blocks;
 
+import com.bekos.genootics.GenooticsMod;
 import com.bekos.genootics.tile.TileMachine;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -19,9 +20,10 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 
-public abstract class BlockMachine<TE extends TileEntity> extends BlockBase implements ITileEntityProvider {
+public abstract class BlockMachine extends BlockBase implements ITileEntityProvider {
 
     public static final PropertyDirection FACING = PropertyDirection.create("facing");
+    public static final int GUI_ID = -1;
 
 
     public BlockMachine(String name) {
@@ -29,22 +31,25 @@ public abstract class BlockMachine<TE extends TileEntity> extends BlockBase impl
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
     }
 
+    @Override
+    public abstract TileEntity createNewTileEntity(World worldIn, int meta);
 
-    public abstract Class<TE> getTileEntityClass();
-
-    public TE getTileEntity(IBlockAccess world, BlockPos pos) {
-        return (TE)world.getTileEntity(pos);
-    }
+    public abstract boolean checkTileEntity(TileEntity te);
 
     @Override
-    public boolean hasTileEntity(IBlockState state) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        // Only execute on the server
+        if (worldIn.isRemote) {
+            return true;
+        }
+        TileEntity te = worldIn.getTileEntity(pos);
+        if (!checkTileEntity(te)) {
+            return false;
+        }
+        System.out.print("HELLO");
+        playerIn.openGui(GenooticsMod.instance, GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
         return true;
     }
-
-    @Nullable
-    @Override
-    public abstract TE createTileEntity(World world, IBlockState state);
-
 
     /////////BEGIN CODE TO MAKE IT FACE TOWARDS THE PLAYER WHEN PLACED/////////
     @Override

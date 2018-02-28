@@ -16,7 +16,6 @@ public class ModBlocks {
         registry.registerAll(
                 machineExtractor
         );
-        GameRegistry.registerTileEntity(machineExtractor.getTileEntityClass(), machineExtractor.getRegistryName().toString());
     }
 
     public static void registerItemBlocks(IForgeRegistry<Item> registry) {
