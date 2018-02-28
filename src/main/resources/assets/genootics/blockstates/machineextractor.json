@@ -1,22 +1,18 @@
 {
   "forge_marker": 1,
   "defaults": {
-    "textures": {
-      "east": "genootics:blocks/machinevents",
-      "west": "genootics:blocks/machinevents",
-      "north": "genootics:blocks/machineextractorfront",
-      "south": "genootics:blocks/machinefan",
-      "up": "genootics:blocks/machineextractortop",
-      "down": "genootics:blocks/machinebase",
-      "particle": "genootics:blocks/machinebase"
-    }
+    "model": "genootics:machineextractor"
   },
   "variants": {
-    "normal": {
-      "model": "cube_all"
-    },
-    "inventory": {
-      "model": "cube_all"
+    "normal": [{}],
+    "inventory": [{}],
+    "facing": {
+      "north": {},
+      "south": {"y": 180},
+      "west": {"y": 270},
+      "east": {"y": 90},
+      "up": {"x": -90},
+      "down": {"x": 90}
     }
   }
 }

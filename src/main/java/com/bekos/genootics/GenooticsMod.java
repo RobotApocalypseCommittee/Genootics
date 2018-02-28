@@ -27,6 +27,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import scala.tools.nsc.backend.icode.analysis.TypeFlowAnalysis;
 
 @Mod(name = GenooticsMod.NAME, version = GenooticsMod.VERSION, modid = GenooticsMod.MODID)
 public class GenooticsMod {
@@ -37,19 +38,24 @@ public class GenooticsMod {
     @SidedProxy(serverSide = "com.bekos.genootics.proxies.CommonProxy", clientSide = "com.bekos.genootics.proxies.ClientProxy")
     public static CommonProxy proxy;
 
+    @Mod.Instance
+    public static GenooticsMod instance;
+
     public static final GenooticsTab creativeTab = new GenooticsTab();
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        proxy.preInit();
+        proxy.preInit(event);
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
+        proxy.init(event);
     }
 
     @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent e) {
+    public void postInit(FMLPostInitializationEvent event) {
+        proxy.postInit(event);
     }
 
     @Mod.EventHandler
