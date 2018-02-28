@@ -1,7 +1,6 @@
-package com.bekos.genootics.blocks;
+package com.bekos.genootics.block;
 
 import com.bekos.genootics.GenooticsMod;
-import com.bekos.genootics.tile.TileMachine;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
@@ -14,10 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
 
 
 public abstract class BlockMachine extends BlockBase implements ITileEntityProvider {

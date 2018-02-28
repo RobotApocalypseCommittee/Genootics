@@ -1,4 +1,4 @@
-package com.bekos.genootics.items;
+package com.bekos.genootics.item;
 
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;

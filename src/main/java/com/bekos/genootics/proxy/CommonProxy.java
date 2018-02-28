@@ -1,4 +1,4 @@
-package com.bekos.genootics.proxies;
+package com.bekos.genootics.proxy;
 
 import com.bekos.genootics.genetics.GeneticsBase;
 import com.bekos.genootics.genetics.GeneticsHandler;
