@@ -19,20 +19,18 @@ public abstract class ContainerMachine<TE extends TileMachine> extends Container
     }
 
     protected void addPlayerSlots(IInventory playerInventory) {
-        // Slots for the main inventory
-        for (int row = 0; row < 3; ++row) {
-            for (int col = 0; col < 9; ++col) {
-                int x = 9 + col * 18;
-                int y = row * 18 + 70;
-                this.addSlotToContainer(new Slot(playerInventory, col + row * 9 + 10, x, y));
+
+        for (int i = 0; i < 3; ++i)
+        {
+            for (int j = 0; j < 9; ++j)
+            {
+                this.addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
-        // Slots for the hotbar
-        for (int row = 0; row < 9; ++row) {
-            int x = 9 + row * 18;
-            int y = 58 + 70;
-            this.addSlotToContainer(new Slot(playerInventory, row, x, y));
+        for (int k = 0; k < 9; ++k)
+        {
+            this.addSlotToContainer(new Slot(playerInventory, k, 8 + k * 18, 142));
         }
     }
 

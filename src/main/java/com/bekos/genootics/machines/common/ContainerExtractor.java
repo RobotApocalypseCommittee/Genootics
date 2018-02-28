@@ -10,14 +10,19 @@ import net.minecraftforge.items.SlotItemHandler;
 public class ContainerExtractor extends ContainerMachine<TileExtractor> {
     public ContainerExtractor(IInventory playerInventory, TileExtractor tileExtractor) {
         super(playerInventory, tileExtractor);
+        System.out.print(this.te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).getSlots());
     }
 
     @Override
     protected void addOwnSlots() {
         IItemHandler itemHandler = this.te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-
-        for (int slot = 0; slot < TileExtractor.SIZE; slot++) {
-            this.addSlotToContainer(new SlotItemHandler(itemHandler, slot, slot*18+9, 6));
-        }
+        // Redstone
+        this.addSlotToContainer(new SlotItemHandler(itemHandler, 0, 25, 37));
+        // Syringe
+        this.addSlotToContainer(new SlotItemHandler(itemHandler, 1, 56, 17));
+        // Empty Storage
+        this.addSlotToContainer(new SlotItemHandler(itemHandler, 2, 56, 53));
+        // Filled Storage
+        this.addSlotToContainer(new SlotItemHandler(itemHandler, 3, 116, 35));
     }
 }
