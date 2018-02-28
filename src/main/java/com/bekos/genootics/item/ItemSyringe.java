@@ -1,4 +1,4 @@
-package com.bekos.genootics.items;
+package com.bekos.genootics.item;
 
 import com.bekos.genootics.GenooticsMod;
 import net.minecraft.client.renderer.ItemMeshDefinition;

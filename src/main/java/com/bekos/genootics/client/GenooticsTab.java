@@ -1,7 +1,7 @@
 package com.bekos.genootics.client;
 
 import com.bekos.genootics.GenooticsMod;
-import com.bekos.genootics.items.ModItems;
+import com.bekos.genootics.item.ModItems;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 
