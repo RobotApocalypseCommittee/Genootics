@@ -1,10 +1,12 @@
 package com.bekos.genootics.tile;
 
+import com.bekos.genootics.tile.energy.EnergyHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -12,10 +14,13 @@ public class TileMachine extends TileEntity {
     // Number of itemstacks stored.
     public static int SIZE;
 
+    private EnergyHandler energyStorage;
     private ItemStackHandler itemStackHandler;
 
-    public TileMachine(int itemSize){
+    public TileMachine(int itemSize, int capacity, int maxTransfer){
         super();
+
+        this.energyStorage = new EnergyHandler(capacity, maxTransfer);
         this.SIZE = itemSize;
         // This item handler will hold our nine inventory slots
         this.itemStackHandler = new ItemStackHandler(this.SIZE) {
@@ -36,12 +41,16 @@ public class TileMachine extends TileEntity {
         if (compound.hasKey("items")) {
             itemStackHandler.deserializeNBT((NBTTagCompound) compound.getTag("items"));
         }
+        if (compound.hasKey("energy")){
+            energyStorage.deserializeNBT((NBTTagCompound) compound.getTag("energy"));
+        }
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         compound.setTag("items", itemStackHandler.serializeNBT());
+        compound.setTag("energy", energyStorage.serializeNBT());
         return compound;
     }
 
@@ -52,7 +61,7 @@ public class TileMachine extends TileEntity {
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || capability == CapabilityEnergy.ENERGY) {
             return true;
         }
         return super.hasCapability(capability, facing);
@@ -62,6 +71,9 @@ public class TileMachine extends TileEntity {
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(itemStackHandler);
+        }
+        if (capability == CapabilityEnergy.ENERGY) {
+            return (T) energyStorage;
         }
         return super.getCapability(capability, facing);
     }

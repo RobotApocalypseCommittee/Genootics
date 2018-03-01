@@ -3,17 +3,19 @@ package com.bekos.genootics.machines.client;
 import com.bekos.genootics.GenooticsMod;
 import com.bekos.genootics.machines.common.ContainerExtractor;
 import com.bekos.genootics.tile.TileExtractor;
+import com.bekos.genootics.tile.TileMachine;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.util.ResourceLocation;
 
-public class GuiExtractor extends GuiContainer {
+public class GuiExtractor extends GuiMachine {
     public static final int WIDTH = 175;
     public static final int HEIGHT = 166;
+
 
     private static final ResourceLocation background = new ResourceLocation(GenooticsMod.MODID, "textures/gui/extractor.png");
 
     public GuiExtractor(TileExtractor tileEntity, ContainerExtractor container) {
-        super(container);
+        super(tileEntity, container);
 
         xSize = WIDTH;
         ySize = HEIGHT;
@@ -29,5 +31,7 @@ public class GuiExtractor extends GuiContainer {
         int l = 5;
 
         drawTexturedModalRect(i + 79, j + 34, 176, 14, l + 1, 16);
+
+        drawPowerBar(157, 14);
     }
 }

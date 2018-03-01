@@ -1,0 +1,40 @@
+package com.bekos.genootics.machines.client;
+
+import com.bekos.genootics.GenooticsMod;
+import com.bekos.genootics.machines.common.ContainerMachine;
+import com.bekos.genootics.tile.TileMachine;
+import com.bekos.genootics.tile.energy.EnergyHandler;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.inventory.Container;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.IEnergyStorage;
+
+public class GuiMachine extends GuiContainer {
+
+    public TileMachine tile;
+    private static final ResourceLocation widgetTexture = new ResourceLocation(GenooticsMod.MODID, "textures/gui/guiwidgets.png");
+
+
+    public GuiMachine(TileMachine tileEntity, ContainerMachine container) {
+        super(container);
+        this.tile = tileEntity;
+    }
+
+    @Override
+    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+
+    }
+
+    protected void drawPowerBar(int x, int y) {
+        IEnergyStorage capability = this.tile.getCapability(CapabilityEnergy.ENERGY, null);
+        System.out.println(capability.getEnergyStored());
+        int h = Math.round(
+                ((float) capability.getEnergyStored()/(float) capability.getMaxEnergyStored()) * (float) 59
+                );
+        System.out.println(h);
+        mc.getTextureManager().bindTexture(widgetTexture);
+        drawTexturedModalRect(x, y, 13, 36, 10, h);
+
+    }
+}

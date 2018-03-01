@@ -7,7 +7,7 @@ public class TileExtractor extends TileMachine {
     public static final int SIZE = 4;
 
     public TileExtractor() {
-        super(SIZE);
+        super(SIZE, 10000, 20);
     }
 
 
