@@ -40,7 +40,7 @@ public class CommandSummonGeneticallyModified extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "summon_gm <LivingEntity> [<Genes>]";
+        return "summon_gm <LivingEntity> [<x> <y> <z>] [<Genes>]";
     }
 
     @Override
@@ -67,7 +67,7 @@ public class CommandSummonGeneticallyModified extends CommandBase {
 
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-        if (args.length < 1 || args.length > 2) {
+        if (args.length < 1 || args.length > 5 || args.length == 3) {
             throw new WrongUsageException("commands.genootics.summon_gm.usage", new Object[0]);
         }
 
@@ -83,6 +83,13 @@ public class CommandSummonGeneticallyModified extends CommandBase {
         double y = sender.getPosition().getY();
         double z = sender.getPosition().getZ();
 
+
+        if (args.length >= 4) { //Then they will be with coords
+            x = parseDouble(x, args[1], true);
+            y = parseDouble(y, args[2], false);
+            z = parseDouble(z, args[3], true);
+        }
+
         NBTTagCompound compound = new NBTTagCompound();
         compound.setString("id", entityName);
 
@@ -97,11 +104,17 @@ public class CommandSummonGeneticallyModified extends CommandBase {
             GeneticsBase entityGenetics = (GeneticsBase) entity.getCapability(GeneticsProvider.GENETICS_CAPABILITY, null);
             entityGenetics.setGM(true);
 
-            if (args.length == 2) {
+            if (args.length == 2 || args.length == 5) {
                 Map<String, Double> geneMap = new HashMap<>();
 
                 try {
-                    NBTTagCompound geneCompound = JsonToNBT.getTagFromJson(args[1]);
+                    int argPos;
+                    if (args.length == 2) {
+                        argPos = 1;
+                    } else {
+                        argPos = 4;
+                    }
+                    NBTTagCompound geneCompound = JsonToNBT.getTagFromJson(args[argPos]);
                     geneMap = NBTParser.convertNBTToMap(geneCompound.getTagList("Genes", Constants.NBT.TAG_COMPOUND));
 
                 } catch (NBTException e) {
