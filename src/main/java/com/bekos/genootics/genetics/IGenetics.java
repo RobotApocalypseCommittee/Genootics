@@ -4,6 +4,8 @@ import java.util.Map;
 
 public interface IGenetics {
     boolean isGM();
+
+    boolean hasGene(String gene);
     Double getGeneValue(String gene);
 
     Map<String, Double> getAllGenes();

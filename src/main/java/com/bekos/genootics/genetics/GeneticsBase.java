@@ -13,8 +13,13 @@ public class GeneticsBase implements IGenetics {
     }
 
     @Override
+    public boolean hasGene(String gene) {
+        return genes.containsKey(gene);
+    }
+
+    @Override
     public Double getGeneValue(String gene) {
-        return genes.get(gene); //Tell me how better to do this, please
+        return genes.get(gene);
     }
 
     @Override
