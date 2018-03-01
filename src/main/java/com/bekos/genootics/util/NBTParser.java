@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class NBTParser {
+public abstract class NBTParser {
 
     public static Map<String, Double> convertNBTToMap(NBTTagList tagList, String keyKey, String valueKey) {
         Map<String, Double> geneMap = new HashMap<>();

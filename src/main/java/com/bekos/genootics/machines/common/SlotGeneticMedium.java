@@ -19,7 +19,7 @@ public class SlotGeneticMedium extends SlotItemHandler {
     @Override
     public boolean isItemValid(ItemStack stack)
     {
-        return (stack.getItem() instanceof BasePetriDish);
+        return (stack.getItem() instanceof BasePetriDish && !(!allowsEmpty && ((BasePetriDish) stack.getItem()).isEmpty(stack)));
     }
 
 

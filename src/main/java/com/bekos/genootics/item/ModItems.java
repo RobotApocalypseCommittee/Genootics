@@ -12,7 +12,7 @@ public class ModItems {
     public static ItemSyringe itemSyringe = new ItemSyringe();
 
     private static ItemManual itemManual = new ItemManual();
-    private static ItemBase itemPetriWooden = new ItemBase("itemPetriWooden");
+    private static ItemBase itemPetriWooden = new ItemPetriDishWooden();
 
     public static void register(IForgeRegistry<Item> registry) {
         registry.registerAll(
