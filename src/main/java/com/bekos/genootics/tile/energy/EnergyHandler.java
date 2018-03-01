@@ -12,8 +12,12 @@ public class EnergyHandler extends EnergyStorage implements INBTSerializable<NBT
 
     @Override
     public int getEnergyStored(){
-        System.out.println("Got energy");
         return super.getEnergyStored();
+    }
+
+    public void setEnergyStored(int energyStored) {
+        System.out.println("Set energy");
+        energy = Math.min(energyStored, capacity);
     }
 
     @Override

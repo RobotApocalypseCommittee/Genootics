@@ -32,6 +32,6 @@ public class GuiExtractor extends GuiMachine {
 
         drawTexturedModalRect(i + 79, j + 34, 176, 14, l + 1, 16);
 
-        drawPowerBar(157, 14);
+        drawPowerBar(guiLeft+157, guiTop+14);
     }
 }
