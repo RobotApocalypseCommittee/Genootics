@@ -1,6 +1,7 @@
 item.genootics.itemSyringe.name=Blood Syringe
 item.genootics.itemManual.name=Genetics Manual
-item.genootics.itemPetriWooden.name=Wooden Petri Dish
+item.genootics.itemPetriDishWooden.name=Wooden Petri Dish
+item.genootics.itemPetriDishIron.name=Iron Petri Dish
 
 tile.genootics.machineExtractor.name=DNA Extractor
 

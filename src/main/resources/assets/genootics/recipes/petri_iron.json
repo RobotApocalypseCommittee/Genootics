@@ -7,7 +7,7 @@
   ],
   "key": {
     "A": {
-      "item": "minecraft:planks",
+      "item": "minecraft:iron_ingot",
       "data": 0
     },
     "B": {
@@ -15,6 +15,6 @@
     }
   },
   "result": {
-    "item": "genootics:itemPetriDishWooden"
+    "item": "genootics:itemPetriDishIron"
   }
 }
