@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "genootics:items/itempetri_wooden"
+    "layer0": "genootics:items/itempetriwooden"
   }
 }

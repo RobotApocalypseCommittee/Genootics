@@ -11,6 +11,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class ModTiles {
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
-        GameRegistry.registerTileEntity(TileExtractor.class, GenooticsMod.MODID + "TileExtractor");
+        GameRegistry.registerTileEntity(TileExtractor.class, GenooticsMod.MODID + ".TileExtractor");
     }
 }

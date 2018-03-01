@@ -10,18 +10,22 @@ import net.minecraftforge.registries.IForgeRegistry;
 public class ModItems {
 
     public static ItemSyringe itemSyringe = new ItemSyringe();
+
     private static ItemManual itemManual = new ItemManual();
+    private static ItemBase itemPetriWooden = new ItemBase("itemPetriWooden");
 
     public static void register(IForgeRegistry<Item> registry) {
         registry.registerAll(
                 itemSyringe,
-                itemManual
+                itemManual,
+                itemPetriWooden
         );
     }
 
     public static void registerModels() {
         itemSyringe.registerItemModel();
         itemManual.registerItemModel();
+        itemPetriWooden.registerItemModel();
     }
 
     //Item registerer
