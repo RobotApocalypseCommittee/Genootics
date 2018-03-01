@@ -21,8 +21,8 @@ public class ContainerExtractor extends ContainerMachine<TileExtractor> {
         // Syringe
         this.addSlotToContainer(new SlotItemHandler(itemHandler, 1, 56, 17));
         // Empty Storage
-        this.addSlotToContainer(new SlotItemHandler(itemHandler, 2, 56, 53));
+        this.addSlotToContainer(new SlotGeneticMedium(itemHandler, 2, 56, 53, true));
         // Filled Storage
-        this.addSlotToContainer(new SlotItemHandler(itemHandler, 3, 116, 35));
+        this.addSlotToContainer(new SlotGeneticMedium(itemHandler, 3, 116, 35, true));
     }
 }
