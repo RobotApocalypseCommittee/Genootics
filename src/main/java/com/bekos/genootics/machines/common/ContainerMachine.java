@@ -18,6 +18,7 @@ public abstract class ContainerMachine<TE extends TileMachine> extends Container
     protected TE te;
 
     protected int cachedEnergyStored;
+    protected boolean hasZeroBeenSent = false;
 
     public ContainerMachine(IInventory playerInventory, TE te) {
         this.te = te;
@@ -87,6 +88,10 @@ public abstract class ContainerMachine<TE extends TileMachine> extends Container
         int newEnergy = te.getCapability(CapabilityEnergy.ENERGY, null).getEnergyStored();
         if (newEnergy != cachedEnergyStored) {
             this.cachedEnergyStored = newEnergy;
+            this.hasZeroBeenSent = false;
+            energyHasChanged = true;
+        } else if (cachedEnergyStored == 0 && !hasZeroBeenSent) {
+            this.hasZeroBeenSent = true;
             energyHasChanged = true;
         }
         // go through the list of listeners (players using this container) and update them if necessary

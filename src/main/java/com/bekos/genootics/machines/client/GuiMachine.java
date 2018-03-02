@@ -31,8 +31,9 @@ public class GuiMachine extends GuiContainer {
         int h = Math.round(
                 ((float) capability.getEnergyStored()/(float) capability.getMaxEnergyStored()) * (float) 59
                 );
+        System.out.println(h);
         mc.getTextureManager().bindTexture(widgetTexture);
-        drawTexturedModalRect(x, y, 13, 36, 10, h);
+        drawTexturedModalRect(x, y+(59-h), 13, 95-h, 10, h);
 
     }
 }
