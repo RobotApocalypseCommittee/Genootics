@@ -28,13 +28,12 @@ public class GuiMachine extends GuiContainer {
 
     protected void drawPowerBar(int x, int y) {
         IEnergyStorage capability = this.tile.getCapability(CapabilityEnergy.ENERGY, null);
-        System.out.println(capability.getEnergyStored());
         int h = Math.round(
                 ((float) capability.getEnergyStored()/(float) capability.getMaxEnergyStored()) * (float) 59
                 );
         System.out.println(h);
         mc.getTextureManager().bindTexture(widgetTexture);
-        drawTexturedModalRect(x, y, 13, 36, 10, h);
+        drawTexturedModalRect(x, y+(59-h), 13, 95-h, 10, h);
 
     }
 }
