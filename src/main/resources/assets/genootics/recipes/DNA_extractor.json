@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "BCB",
+    "FED"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:flint",
+      "data": 0
+    },
+    "B": {
+      "item": "minecraft:glass"
+    },
+    "C": {
+      "item": "minecraft:iron_block",
+      "data": 0
+    },
+    "D": {
+      "item": "genootics:itemSyringe",
+      "data": 0
+    },
+    "E": {
+      "item": "minecraft:diamond",
+      "data": 0
+    },
+    "F": {
+      "item": "genootics:itemPetriDishIron",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "genootics:machineExtractor"
+  }
+}

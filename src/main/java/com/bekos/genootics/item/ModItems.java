@@ -13,19 +13,28 @@ public class ModItems {
 
     private static ItemManual itemManual = new ItemManual();
     private static ItemBase itemPetriWooden = new ItemPetriDishWooden();
+    private static ItemBase itemPetriIron = new ItemPetriDishIron();
+    private static ItemBase itemPetriStone = new ItemPetriDishStone();
+    private static ItemBase itemPetriDiamond = new ItemPetriDishDiamond();
 
     public static void register(IForgeRegistry<Item> registry) {
         registry.registerAll(
                 itemSyringe,
                 itemManual,
-                itemPetriWooden
-        );
+                itemPetriWooden,
+                itemPetriIron,
+                itemPetriStone,
+                itemPetriDiamond
+       );
     }
 
     public static void registerModels() {
         itemSyringe.registerItemModel();
         itemManual.registerItemModel();
         itemPetriWooden.registerItemModel();
+        itemPetriIron.registerItemModel();
+        itemPetriStone.registerItemModel();
+        itemPetriDiamond.registerItemModel();
     }
 
     //Item registerer
