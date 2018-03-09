@@ -3,8 +3,6 @@ package com.bekos.genootics.machines.client;
 import com.bekos.genootics.GenooticsMod;
 import com.bekos.genootics.machines.common.ContainerExtractor;
 import com.bekos.genootics.tile.TileExtractor;
-import com.bekos.genootics.tile.TileMachine;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiExtractor extends GuiMachine {

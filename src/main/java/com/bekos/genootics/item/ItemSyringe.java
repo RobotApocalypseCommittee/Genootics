@@ -7,12 +7,11 @@ import com.bekos.genootics.util.NBTParser;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
@@ -34,14 +33,11 @@ public class ItemSyringe extends ItemBase {
 
         ModelBakery.registerItemVariants(this, bloodModel, cleanModel);
 
-        ModelLoader.setCustomMeshDefinition(this, new ItemMeshDefinition() {
-            @Override
-            public ModelResourceLocation getModelLocation(ItemStack stack) {
-                if (isBloody(stack)) {
-                    return bloodModel;
-                } else {
-                    return cleanModel;
-                }
+        ModelLoader.setCustomMeshDefinition(this, stack -> {
+            if (isBloody(stack)) {
+                return bloodModel;
+            } else {
+                return cleanModel;
             }
         });
     }
@@ -65,9 +61,14 @@ public class ItemSyringe extends ItemBase {
 
     private void setBloodGeneInformation(ItemStack stack, EntityLivingBase entity) {
         GeneticsBase entityGenetics = (GeneticsBase) entity.getCapability(GeneticsProvider.GENETICS_CAPABILITY, null);
-        NBTTagList geneList = NBTParser.convertMapToNBT(entityGenetics.getAllGenes());
 
-        getTagCompoundSafe(stack).setTag("EntityGenes", geneList);
+        NBTTagCompound compound = getTagCompoundSafe(stack);
+
+        NBTTagList allGenes = NBTParser.convertMapListToNBT(entityGenetics.getAllGenes());
+        compound.setTag("AllGenes", allGenes);
+
+        NBTTagList allGenesDom = NBTParser.convertMapListToNBT(entityGenetics.getAllGenesDominances());
+        compound.setTag("AllGenesDom", allGenesDom);
     }
 
     private void clearBloodEntity(ItemStack stack) {
@@ -75,7 +76,8 @@ public class ItemSyringe extends ItemBase {
     }
 
     private void clearBloodGeneInformation(ItemStack stack) {
-        getTagCompoundSafe(stack).removeTag("EntityGenes");
+        getTagCompoundSafe(stack).removeTag("AllGenes");
+        getTagCompoundSafe(stack).removeTag("AllGenesDom");
     }
 
     @Override
@@ -100,6 +102,7 @@ public class ItemSyringe extends ItemBase {
         } else if (!isPlayer) {
             getTagCompoundSafe(stack).removeTag("NonPlayer");
         }
+
         return new ActionResult<>(EnumActionResult.SUCCESS, stack);
     }
 

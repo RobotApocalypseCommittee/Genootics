@@ -3,21 +3,16 @@ package com.bekos.genootics.util;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.common.util.Constants;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 public abstract class NBTParser {
 
     public static Map<String, Double> convertNBTToMap(NBTTagList tagList, String keyKey, String valueKey) {
         Map<String, Double> geneMap = new HashMap<>();
 
-        Iterator<NBTBase> iterator = tagList.iterator();
-
-        while (iterator.hasNext()) {
-            NBTTagCompound geneCompound = (NBTTagCompound) iterator.next();
+        for (NBTBase aTagList : tagList) {
+            NBTTagCompound geneCompound = (NBTTagCompound) aTagList;
             geneMap.put(geneCompound.getString(keyKey), geneCompound.getDouble(valueKey));
         }
 
@@ -47,5 +42,33 @@ public abstract class NBTParser {
 
     public static NBTTagList convertMapToNBT(Map<String, Double> mapIn) {
         return convertMapToNBT(mapIn, "Gene", "Value");
+    }
+
+    public static NBTTagList convertMapListToNBT(List<Map<String, Double>> listIn, String stringKey, String doubleKey) {
+        NBTTagList tagList = new NBTTagList();
+        for (Map<String, Double> map : listIn) {
+            tagList.appendTag(convertMapToNBT(map, stringKey, doubleKey));
+        }
+
+        return tagList;
+    }
+
+    public static NBTTagList convertMapListToNBT(List<Map<String, Double>> listIn) {
+        return convertMapListToNBT(listIn, "Gene", "Value");
+    }
+
+    public static List<Map<String, Double>> convertNBTToMapList(NBTTagList tagList, String keyKey, String valueKey) {
+        List<Map<String, Double>> returnList = new ArrayList<>();
+
+        for (NBTBase aTagList : tagList) {
+            NBTTagList geneList = (NBTTagList) aTagList;
+            returnList.add(convertNBTToMap(geneList, keyKey, valueKey));
+        }
+
+        return returnList;
+    }
+
+    public static List<Map<String, Double>> convertNBTToMapList(NBTTagList tagList) {
+        return convertNBTToMapList(tagList, "Gene", "Value");
     }
 }

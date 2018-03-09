@@ -8,8 +8,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.Constants;
 
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 public class GeneticsStorage implements Capability.IStorage<IGenetics> {
@@ -20,8 +19,17 @@ public class GeneticsStorage implements Capability.IStorage<IGenetics> {
 
         compound.setBoolean("IsGM", instance.isGM());
 
-        NBTTagList geneList = NBTParser.convertMapToNBT(instance.getAllGenes());
-        compound.setTag("Genes", geneList);
+        compound.setBoolean("HasBeenEdited", instance.hasBeenEdited());
+
+        if (!instance.isGM()) {
+            return compound;
+        }
+
+        NBTTagList allGenes = NBTParser.convertMapListToNBT(instance.getAllGenes());
+        compound.setTag("AllGenes", allGenes);
+
+        NBTTagList allGenesDom = NBTParser.convertMapListToNBT(instance.getAllGenesDominances());
+        compound.setTag("AllGenesDom", allGenesDom);
 
         return compound;
     }
@@ -34,7 +42,15 @@ public class GeneticsStorage implements Capability.IStorage<IGenetics> {
             instance.setGM(false);
         } else {
             instance.setGM(true);
-            instance.setGenes(NBTParser.convertNBTToMap(compound.getTagList("Genes", Constants.NBT.TAG_COMPOUND)));
+
+            instance.setHasBeenEdited(compound.getBoolean("HasBeenEdited"));
+
+            List<Map<String, Double>> allGenes = NBTParser.convertNBTToMapList(compound.getTagList("AllGenes", Constants.NBT.TAG_LIST));
+            List<Map<String, Double>> allGenesDom = NBTParser.convertNBTToMapList(compound.getTagList("AllGenesDom", Constants.NBT.TAG_LIST));
+
+            System.out.println(allGenes);
+
+            instance.setAllGenes(allGenes, allGenesDom);
         }
     }
 

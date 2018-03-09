@@ -2,7 +2,6 @@ package com.bekos.genootics.machines.common;
 
 import com.bekos.genootics.tile.TileExtractor;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;

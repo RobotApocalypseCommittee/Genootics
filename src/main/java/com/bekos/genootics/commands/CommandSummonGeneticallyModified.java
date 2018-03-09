@@ -12,11 +12,9 @@ import net.minecraft.command.WrongUsageException;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -50,10 +48,7 @@ public class CommandSummonGeneticallyModified extends CommandBase {
 
     @Override
     public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
-        if (!sender.canUseCommand(server.getOpPermissionLevel(), "summon_gm")) {
-            return false;
-        }
-        return true;
+        return sender.canUseCommand(server.getOpPermissionLevel(), "summon_gm");
     }
 
     @Override
@@ -105,7 +100,7 @@ public class CommandSummonGeneticallyModified extends CommandBase {
             entityGenetics.setGM(true);
 
             if (args.length == 2 || args.length == 5) {
-                Map<String, Double> geneMap = new HashMap<>();
+                Map<String, Double> geneMap;
 
                 try {
                     int argPos;
@@ -121,7 +116,21 @@ public class CommandSummonGeneticallyModified extends CommandBase {
                     throw new CommandException("commands.genootics.summon_gm.tagError", new Object[] {e.getMessage()});
                 }
 
-                entityGenetics.setGenes(geneMap);
+                List<Map<String, Double>> geneList = new ArrayList<>();
+                geneList.add(geneMap);
+                geneList.add(geneMap);
+                geneList.add(geneMap);
+
+                Map<String, Double> dominanceMap = new HashMap<>();
+                for (String key : geneMap.keySet()) {
+                    dominanceMap.put(key, 2.0);
+                }
+                List<Map<String, Double>> geneDomList = new ArrayList<>();
+                geneDomList.add(dominanceMap);
+                geneDomList.add(dominanceMap);
+                geneDomList.add(dominanceMap);
+
+                entityGenetics.setAllGenes(geneList, geneDomList);
             }
 
             world.spawnEntity(entity);

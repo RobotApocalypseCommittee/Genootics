@@ -5,9 +5,7 @@ import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 @Mod.EventBusSubscriber
 public class BabySpawnEventHandler {
@@ -27,50 +25,71 @@ public class BabySpawnEventHandler {
 
         EntityAgeable baseChild = father.createChild(mother);
 
-        Map<String, Double> mapChildGenes = shuffleGenes(fatherGenetics, motherGenetics).getAllGenes();
-
         IGenetics childGenetics = baseChild.getCapability(GeneticsProvider.GENETICS_CAPABILITY, null);
         childGenetics.setGM(true);
-        childGenetics.setGenes(mapChildGenes);
+
+        List<Map<String, Double>> fatherGamete = getRandomGenes(fatherGenetics);
+        List<Map<String, Double>> motherGamete = getRandomGenes(motherGenetics);
+
+        childGenetics.setGenes(fatherGamete.get(0), fatherGamete.get(1), GeneticsSide.LEFT);
+        childGenetics.setGenes(motherGamete.get(0), motherGamete.get(1), GeneticsSide.RIGHT);
+
+        // Generates the real genes from the parent ones
+        childGenetics.updateExpressed();
 
         event.setChild(baseChild);
     }
 
-    private static IGenetics shuffleGenes(IGenetics fatherGenetics, IGenetics motherGenetics) {
-        /* 70% is both the retention chance and the retention modifier, this can be changed in config, or even augmented based on genes */
+    private static List<Map<String, Double>> getRandomGenes(IGenetics parentGenetics) {
+        // Basically chooses left or right for each, or if there is no equivalent on the other side,
+        // right/left or nothing
+        List<Map<String, Double>> returnGeneList = new ArrayList<>();
+
         Random random = new Random();
 
-        IGenetics childGenetics = new GeneticsBase();
+        Map<String, Double> parentLeftGenes = parentGenetics.getLeftGenes();
+        Map<String, Double> parentRightGenes = parentGenetics.getRightGenes();
 
-        Map<String, Double> childGenes = new HashMap<>();
+        Map<String, Double> parentLeftGenesDom = parentGenetics.getLeftGenesDominance();
+        Map<String, Double> parentRightGenesDom = parentGenetics.getRightGenesDominance();
 
-        Map<String, Double> fatherGenes = fatherGenetics.getAllGenes();
-        Map<String, Double> motherGenes = motherGenetics.getAllGenes();
+        if (parentLeftGenes == parentRightGenes && parentLeftGenesDom == parentRightGenesDom) {
+            returnGeneList.add(parentLeftGenes);
+            returnGeneList.add(parentLeftGenesDom);
+            return returnGeneList;
+        }
 
-        System.out.println(fatherGenes);
-        System.out.println(motherGenes);
+        Map<String, Double> gameteGenes = new HashMap<>();
+        Map<String, Double> gameteGenesDom = new HashMap<>();
 
-        for (Map.Entry<String, Double> gene : fatherGenes.entrySet()) {
-            if (motherGenes.containsKey(gene.getKey())) {
-                childGenes.put(gene.getKey(), (gene.getValue()+motherGenes.get(gene.getKey()))*0.7);
-                motherGenes.remove(gene.getKey());
+        for (Map.Entry<String, Double> gene : parentLeftGenes.entrySet()) {
+            if (parentRightGenes.containsKey(gene.getKey())) {
+                if (random.nextDouble() > 0.5) {
+                    gameteGenes.put(gene.getKey(), gene.getValue());
+                    gameteGenesDom.put(gene.getKey(), parentLeftGenesDom.get(gene.getKey()));
+                } else {
+                    gameteGenes.put(gene.getKey(), parentRightGenes.get(gene.getKey()));
+                    gameteGenesDom.put(gene.getKey(), parentRightGenesDom.get(gene.getKey()));
+                    parentRightGenes.remove(gene.getKey());
+                }
             } else {
-                if (random.nextFloat() < 0.7) {
-                    childGenes.put(gene.getKey(), gene.getValue() * 0.7);
+                if (random.nextDouble() > 0.5) {
+                    gameteGenes.put(gene.getKey(), gene.getValue());
+                    gameteGenesDom.put(gene.getKey(), parentLeftGenesDom.get(gene.getKey()));
                 }
             }
         }
 
-        for (Map.Entry<String, Double> gene : motherGenes.entrySet()) {
-            if (random.nextFloat() < 0.7) {
-                childGenes.put(gene.getKey(), gene.getValue() * 0.7);
+        for (Map.Entry<String, Double> gene : parentRightGenes.entrySet()) {
+            if (random.nextDouble() > 0.5) {
+                gameteGenes.put(gene.getKey(), gene.getValue());
+                gameteGenesDom.put(gene.getKey(), parentRightGenesDom.get(gene.getKey()));
             }
         }
 
-        System.out.println(childGenes);
+        returnGeneList.add(gameteGenes);
+        returnGeneList.add(gameteGenesDom);
 
-        childGenetics.setGenes(childGenes);
-
-        return childGenetics;
+        return returnGeneList;
     }
 }
