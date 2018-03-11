@@ -17,7 +17,7 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent e) {
-        CapabilityManager.INSTANCE.register(IGenetics.class, new GeneticsStorage(), GeneticsBase.class);
+        CapabilityManager.INSTANCE.register(IGenetics.class, new GeneticsStorage(), GeneticsBase::new);
         MinecraftForge.EVENT_BUS.register(new GeneticsHandler());
     }
 
