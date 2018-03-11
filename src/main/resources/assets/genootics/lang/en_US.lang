@@ -1,3 +1,5 @@
+itemGroup.genootics=Genootics
+
 item.genootics.itemSyringe.name=Blood Syringe
 item.genootics.itemManual.name=Genetics Manual
 item.genootics.itemPetriDishWooden.name=Wooden Petri Dish
@@ -7,7 +9,7 @@ item.genootics.itemPetriDishDiamond.name=Diamond Petri Dish
 
 tile.genootics.machineExtractor.name=DNA Extractor
 
-commands.genootics.summon_gm.usage=summon_gm <LivingEntity> [<x> <y> <z>] [<Genes>]
+commands.genootics.summon_gm.usage=summon_gm <entityname> [<x> <y> <z>] [<Genes>]
 commands.genootics.summon_gm.outOfWorld=Cannot summon the object out of the world
 commands.genootics.summon_gm.failed=Unable to summon object
 commands.genootics.summon_gm.success=Object successfully summoned

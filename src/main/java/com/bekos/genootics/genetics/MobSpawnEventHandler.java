@@ -94,8 +94,8 @@ public class MobSpawnEventHandler {
 
         System.out.println(entityGenetics.getAllGenes());
 
-        Map<String, Double> expressedGenes = entityGenetics.getExpressedGenes();
-        Map<String, Double> expressedGenesDom = entityGenetics.getExpressedGenesDominance();
+        Map<String, Double> expressedGenes = entityGenetics.getGenes(GeneticsSide.EXPRESSED);
+        Map<String, Double> expressedGenesDom = entityGenetics.getGenesDominance(GeneticsSide.EXPRESSED);
 
         for (Map.Entry<String, Double> gene : expressedGenes.entrySet()) {
             compound = chooseGeneFunction(gene.getKey(), gene.getValue(), expressedGenesDom.get(gene.getKey()), compound);
