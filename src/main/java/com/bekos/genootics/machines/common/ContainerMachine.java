@@ -96,8 +96,8 @@ public abstract class ContainerMachine<TE extends TileMachine> extends Container
             this.hasZeroBeenSent = true;
             energyHasChanged = true;
         }
-        if (te.ticksRemaining != cachedTickRemaining) {
-            this.cachedTickRemaining = te.ticksRemaining;
+        if (te.getTicksRemaining() != cachedTickRemaining) {
+            this.cachedTickRemaining = te.getTicksRemaining();
             completenessHasChanged = true;
         }
         // go through the list of listeners (players using this container) and update them if necessary
@@ -106,6 +106,7 @@ public abstract class ContainerMachine<TE extends TileMachine> extends Container
                 listener.sendWindowProperty(this, 0, this.cachedEnergyStored);
             }
             if (completenessHasChanged) {
+                System.out.println("COMPLETENESS HAS CHANGED");
                 listener.sendWindowProperty(this, 1, this.cachedTickRemaining);
             }
         }
@@ -115,8 +116,8 @@ public abstract class ContainerMachine<TE extends TileMachine> extends Container
     @SideOnly(Side.CLIENT)
     public void updateProgressBar(int id, int data) {
         switch (id) {
-            case 0: ((EnergyHandler) te.getCapability(CapabilityEnergy.ENERGY, null)).setEnergyStored(data);
-            case 1: te.ticksRemaining = data;
+            case 0: ((EnergyHandler) te.getCapability(CapabilityEnergy.ENERGY, null)).setEnergyStored(data); break;
+            case 1: te.setTicksRemaining(data); break;
         }
     }
 }

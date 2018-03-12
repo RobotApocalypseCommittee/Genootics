@@ -26,7 +26,7 @@ public class GuiExtractor extends GuiMachine {
 
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
-        int l = this.tile.ticksRemaining == 0 ? this.tile.ticksRemaining*24/200 : 0;
+        int l = this.tile.getTicksRemaining() == 0 ? 0 : 24-this.tile.getTicksRemaining()*24/200;
 
         drawTexturedModalRect(i + 79, j + 34, 176, 14, l + 1, 16);
 

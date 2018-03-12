@@ -15,7 +15,7 @@ public abstract class TileMachine extends TileEntity implements ITickable {
     // Number of itemstacks stored.
     public static int SIZE;
     private int energyPerTick;
-    public int ticksRemaining;
+    protected int ticksRemaining;
 
     private EnergyHandler energyStorage;
     protected ItemStackHandler itemStackHandler;
@@ -38,7 +38,6 @@ public abstract class TileMachine extends TileEntity implements ITickable {
     }
 
     public boolean canWork() {
-        boolean x = this.energyStorage.extractEnergy(energyPerTick, true) == energyPerTick;
         return this.energyStorage.extractEnergy(energyPerTick, true) == energyPerTick;
     }
 
@@ -46,7 +45,13 @@ public abstract class TileMachine extends TileEntity implements ITickable {
         this.energyStorage.extractEnergy(energyPerTick, false);
     }
 
+    public int getTicksRemaining() {
+        return ticksRemaining;
+    }
 
+    public void setTicksRemaining(int ticksRemaining) {
+        this.ticksRemaining = ticksRemaining;
+    }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {

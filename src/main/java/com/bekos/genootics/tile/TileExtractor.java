@@ -10,7 +10,6 @@ import java.util.List;
 public class TileExtractor extends TileMachine {
     // Number of itemstacks stored.
     public static final int SIZE = 4;
-    private int ticksRemaining;
     private boolean isWorking;
 
     public TileExtractor() {
@@ -32,7 +31,6 @@ public class TileExtractor extends TileMachine {
                 this.isWorking = false;
                 this.ticksRemaining = 0;
             }
-            System.out.println(this.ticksRemaining);
         }
     }
 
