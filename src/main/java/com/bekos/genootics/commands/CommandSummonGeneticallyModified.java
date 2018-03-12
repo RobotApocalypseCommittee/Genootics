@@ -38,7 +38,7 @@ public class CommandSummonGeneticallyModified extends CommandBase {
 
     @Override
     public String getUsage(ICommandSender sender) {
-        return "summon_gm <LivingEntity> [<x> <y> <z>] [<Genes>]";
+        return "/summon_gm <LivingEntity> [<x> <y> <z>] [<Genes>]";
     }
 
     @Override

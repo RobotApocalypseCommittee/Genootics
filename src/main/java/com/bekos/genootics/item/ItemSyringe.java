@@ -16,8 +16,12 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemSyringe extends ItemBase {
 
@@ -42,7 +46,7 @@ public class ItemSyringe extends ItemBase {
         });
     }
 
-    private boolean isBloody(ItemStack stack) {
+    public boolean isBloody(ItemStack stack) {
         return getTagCompoundSafe(stack).hasKey("Bloody");
     }
 
@@ -69,6 +73,16 @@ public class ItemSyringe extends ItemBase {
 
         NBTTagList allGenesDom = NBTParser.convertMapListToNBT(entityGenetics.getAllGenesDominances());
         compound.setTag("AllGenesDom", allGenesDom);
+    }
+    public List<NBTTagList> getBloodGeneInformation(ItemStack stack) {
+        if (!isBloody(stack)) {
+            return new ArrayList<>();
+        } else {
+            List<NBTTagList> returnList = new ArrayList<>();
+            returnList.add(getTagCompoundSafe(stack).getTagList("AllGenes", Constants.NBT.TAG_LIST));
+            returnList.add(getTagCompoundSafe(stack).getTagList("AllGenesDom", Constants.NBT.TAG_LIST));
+            return returnList;
+        }
     }
 
     private void clearBloodEntity(ItemStack stack) {

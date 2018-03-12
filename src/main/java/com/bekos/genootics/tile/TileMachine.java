@@ -5,21 +5,25 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class TileMachine extends TileEntity {
+public abstract class TileMachine extends TileEntity implements ITickable {
     // Number of itemstacks stored.
     public static int SIZE;
+    private int energyPerTick;
+    public int ticksRemaining;
 
     private EnergyHandler energyStorage;
-    private ItemStackHandler itemStackHandler;
+    protected ItemStackHandler itemStackHandler;
 
-    public TileMachine(int itemSize, int capacity, int maxTransfer){
+    public TileMachine(int itemSize, int capacity, int maxTransfer, int energyPerTick){
         super();
-
+        this.energyPerTick = energyPerTick;
+        ticksRemaining = 0;
         this.energyStorage = new EnergyHandler(capacity, maxTransfer);
         this.SIZE = itemSize;
         // This item handler will hold our nine inventory slots
@@ -33,6 +37,15 @@ public class TileMachine extends TileEntity {
         };
     }
 
+    public boolean canWork() {
+        boolean x = this.energyStorage.extractEnergy(energyPerTick, true) == energyPerTick;
+        return this.energyStorage.extractEnergy(energyPerTick, true) == energyPerTick;
+    }
+
+    public void doWork() {
+        this.energyStorage.extractEnergy(energyPerTick, false);
+    }
+
 
 
     @Override
@@ -44,6 +57,9 @@ public class TileMachine extends TileEntity {
         if (compound.hasKey("energy")){
             energyStorage.deserializeNBT((NBTTagCompound) compound.getTag("energy"));
         }
+        if (compound.hasKey("ticksRemaining")) {
+            this.ticksRemaining = compound.getInteger("ticksRemaining");
+        }
     }
 
     @Override
@@ -51,6 +67,7 @@ public class TileMachine extends TileEntity {
         super.writeToNBT(compound);
         compound.setTag("items", itemStackHandler.serializeNBT());
         compound.setTag("energy", energyStorage.serializeNBT());
+        compound.setInteger("ticksRemaining", this.ticksRemaining);
         return compound;
     }
 
