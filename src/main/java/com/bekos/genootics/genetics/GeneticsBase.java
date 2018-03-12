@@ -31,23 +31,21 @@ public class GeneticsBase implements IGenetics {
     }
 
     @Override
-    public boolean hasGene(String gene) {
-        return genesExpressed.containsKey(gene);
+    public boolean hasGene(String gene, GeneticsSide side) {
+        switch (side) {
+            case LEFT: return genesLeft.containsKey(gene);
+            case RIGHT: return genesRight.containsKey(gene);
+            default: return genesExpressed.containsKey(gene);
+        }
     }
 
     @Override
-    public Double getGeneValue(String gene) {
-        return genesExpressed.get(gene);
-    }
-
-    @Override
-    public Double getLeftGeneValue(String gene) {
-        return genesLeft.get(gene);
-    }
-
-    @Override
-    public Double getRightGeneValue(String gene) {
-        return genesRight.get(gene);
+    public Double getGeneValue(String gene, GeneticsSide side) {
+        switch (side) {
+            case LEFT: return genesLeft.get(gene);
+            case RIGHT: return genesRight.get(gene);
+            default: return genesExpressed.get(gene);
+        }
     }
 
     @Override
@@ -69,33 +67,21 @@ public class GeneticsBase implements IGenetics {
     }
 
     @Override
-    public Map<String, Double> getLeftGenes() {
-        return genesLeft;
+    public Map<String, Double> getGenes(GeneticsSide side) {
+        switch (side) {
+            case LEFT: return genesLeft;
+            case RIGHT: return genesRight;
+            default: return genesExpressed;
+        }
     }
 
     @Override
-    public Map<String, Double> getLeftGenesDominance() {
-        return genesLeftDominance;
-    }
-
-    @Override
-    public Map<String, Double> getRightGenes() {
-        return genesRight;
-    }
-
-    @Override
-    public Map<String, Double> getRightGenesDominance() {
-        return genesRightDominance;
-    }
-
-    @Override
-    public Map<String, Double> getExpressedGenes() {
-        return genesExpressed;
-    }
-
-    @Override
-    public Map<String, Double> getExpressedGenesDominance() {
-        return genesExpressedDominance;
+    public Map<String, Double> getGenesDominance(GeneticsSide side) {
+        switch (side) {
+            case LEFT: return genesLeftDominance;
+            case RIGHT: return genesRightDominance;
+            default: return genesExpressedDominance;
+        }
     }
 
     @Override

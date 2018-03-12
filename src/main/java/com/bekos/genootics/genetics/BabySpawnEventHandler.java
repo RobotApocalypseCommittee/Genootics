@@ -47,11 +47,11 @@ public class BabySpawnEventHandler {
 
         Random random = new Random();
 
-        Map<String, Double> parentLeftGenes = parentGenetics.getLeftGenes();
-        Map<String, Double> parentRightGenes = parentGenetics.getRightGenes();
+        Map<String, Double> parentLeftGenes = parentGenetics.getGenes(GeneticsSide.LEFT);
+        Map<String, Double> parentRightGenes = parentGenetics.getGenes(GeneticsSide.RIGHT);
 
-        Map<String, Double> parentLeftGenesDom = parentGenetics.getLeftGenesDominance();
-        Map<String, Double> parentRightGenesDom = parentGenetics.getRightGenesDominance();
+        Map<String, Double> parentLeftGenesDom = parentGenetics.getGenesDominance(GeneticsSide.LEFT);
+        Map<String, Double> parentRightGenesDom = parentGenetics.getGenesDominance(GeneticsSide.RIGHT);
 
         if (parentLeftGenes == parentRightGenes && parentLeftGenesDom == parentRightGenesDom) {
             returnGeneList.add(parentLeftGenes);
