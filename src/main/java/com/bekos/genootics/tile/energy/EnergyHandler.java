@@ -11,7 +11,6 @@ public class EnergyHandler extends EnergyStorage implements INBTSerializable<NBT
     }
 
     public void setEnergyStored(int energyStored) {
-        System.out.println("Set energy");
         energy = Math.min(energyStored, capacity);
     }
 

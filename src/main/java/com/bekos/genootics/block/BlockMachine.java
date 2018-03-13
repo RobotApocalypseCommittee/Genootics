@@ -42,7 +42,6 @@ public abstract class BlockMachine extends BlockBase implements ITileEntityProvi
         if (!checkTileEntity(te)) {
             return false;
         }
-        System.out.print("HELLO");
         playerIn.openGui(GenooticsMod.instance, GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
         return true;
     }

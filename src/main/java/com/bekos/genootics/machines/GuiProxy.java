@@ -19,7 +19,6 @@ public class GuiProxy implements IGuiHandler {
         BlockPos pos = new BlockPos(x, y, z);
         TileEntity te = world.getTileEntity(pos);
         if (te instanceof TileExtractor) {
-            System.out.print("CLIENT GUI ESTABLISHED");
             return new ContainerExtractor(player.inventory, (TileExtractor) te);
         }
         return null;
@@ -32,7 +31,6 @@ public class GuiProxy implements IGuiHandler {
         TileEntity te = world.getTileEntity(pos);
         if (te instanceof TileExtractor) {
             TileExtractor containerTileEntity = (TileExtractor) te;
-            System.out.print("CLIENT GUI ESTABLISHED");
             return new GuiExtractor(containerTileEntity, new ContainerExtractor(player.inventory, containerTileEntity));
         }
         return null;
