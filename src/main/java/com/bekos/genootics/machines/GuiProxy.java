@@ -1,6 +1,6 @@
 package com.bekos.genootics.machines;
 
-import com.bekos.genootics.machines.client.GuiExtractor;
+import com.bekos.genootics.gui.GuiExtractor;
 import com.bekos.genootics.machines.common.ContainerExtractor;
 import com.bekos.genootics.tile.TileExtractor;
 import net.minecraft.entity.player.EntityPlayer;

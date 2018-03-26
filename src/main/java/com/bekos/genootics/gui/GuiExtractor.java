@@ -1,4 +1,4 @@
-package com.bekos.genootics.machines.client;
+package com.bekos.genootics.gui;
 
 import com.bekos.genootics.GenooticsMod;
 import com.bekos.genootics.machines.common.ContainerExtractor;
