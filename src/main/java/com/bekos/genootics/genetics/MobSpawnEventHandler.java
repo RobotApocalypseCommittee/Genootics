@@ -31,55 +31,6 @@ public class MobSpawnEventHandler {
 
             entity.getCapability(GeneticsProvider.GENETICS_CAPABILITY, null).setHasBeenEdited(true);
 
-            /*GeneticsBase entityGenetics = (GeneticsBase) entity.getCapability(GeneticsProvider.GENETICS_CAPABILITY, null);
-
-            if (!entityGenetics.isGM()) {
-                return;
-            }
-
-            Double health = entityGenetics.getGeneValue("Health");
-            Double speed = entityGenetics.getGeneValue("MovementSpeed");
-
-            if (health == null) {
-                health = 5d;
-            }
-            if (speed == null) {
-                speed = 5d;
-            }
-
-            NBTTagCompound compound = new NBTTagCompound();
-            entity.writeEntityToNBT(compound);
-
-            //Makes them have 5 health and sets their movement speed to a VERY large number (hehe)
-            //This is not how it will stay, but at least for now it's a calm day
-
-            compound.setDouble("Health", health);
-
-            NBTTagList attributes = compound.getTagList("Attributes", Constants.NBT.TAG_COMPOUND);
-            Iterator<NBTBase> iterator = attributes.iterator();
-
-            while (iterator.hasNext()) {
-                NBTTagCompound innerCompound = (NBTTagCompound) iterator.next();
-                if (innerCompound.getString("Name").equals("generic.movementSpeed")) {
-                    iterator.remove();
-                    break;
-                }
-            }
-
-            NBTTagCompound newCompound = new NBTTagCompound();
-            newCompound.setDouble("Base", speed);
-            newCompound.setString("Name", "generic.movementSpeed");
-
-            attributes.appendTag(newCompound);
-
-            /*NBTTagList attributes = new NBTTagList();
-            NBTTagCompound newCompound = new NBTTagCompound();
-            newCompound.setDouble("Base", speed);
-            newCompound.setString("Name", "generic.movementSpeed");
-            attributes.appendTag(newCompound); TODO Is this a viable replacement?/
-
-            compound.setTag("Attributes", attributes);*/
-
             System.out.println(compound);
 
             entity.readEntityFromNBT(compound);

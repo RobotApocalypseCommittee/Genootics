@@ -27,8 +27,13 @@ public class WidgetGeneticViewer extends Widget {
     @Override
     public void renderForeground(int x, int y, int h, int w) {
         int len = this.genes.size();
+
+        if (len == 0) {
+            return;
+        }
+
         // This will lose some space at the bottom, naturally
-        int pixels = (int) ((float) len / (float) h);
+        int pixels = (int) ((float) h / (float) len);
         int i = 0;
         System.out.println(len);
         for (String gene: this.genes.keySet()) {
@@ -39,7 +44,6 @@ public class WidgetGeneticViewer extends Widget {
 
     @Override
     public void renderBackground(int x, int y, int h, int w) {
-
 
     }
 }
