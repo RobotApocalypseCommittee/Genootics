@@ -29,7 +29,7 @@ public class GuiPetri extends GuiModularScreen {
         super.initGui();
         HashMap<String , Double> genes = new HashMap<String, Double>();
         genes.put("Magic", 30d);
-        HashMap<String , Double> genesDom = new HashMap<String, Double>();
+        HashMap<String , Double> genesDom = new HashMap<>();
         genesDom.put("Magic", 30d);
 
     }
