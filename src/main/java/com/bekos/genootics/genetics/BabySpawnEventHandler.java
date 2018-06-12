@@ -10,6 +10,7 @@ import java.util.*;
 @Mod.EventBusSubscriber
 public class BabySpawnEventHandler {
 
+    @SuppressWarnings("ConstantConditions")
     @SubscribeEvent
     public static void onBabyBorn(BabyEntitySpawnEvent event) {
         System.out.println("BABY BORN!");
@@ -40,6 +41,7 @@ public class BabySpawnEventHandler {
         event.setChild(baseChild);
     }
 
+    @SuppressWarnings("unused")
     private static List<Map<String, Double>> getRandomGenes(IGenetics parentGenetics) {
         // Basically chooses left or right for each, or if there is no equivalent on the other side,
         // right/left or nothing

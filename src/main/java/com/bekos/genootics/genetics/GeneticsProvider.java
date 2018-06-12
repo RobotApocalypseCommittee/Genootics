@@ -11,18 +11,20 @@ public class GeneticsProvider implements ICapabilitySerializable<NBTBase> {
     @CapabilityInject(IGenetics.class)
     public static final Capability<IGenetics> GENETICS_CAPABILITY = null;
 
-    private IGenetics instance = GENETICS_CAPABILITY.getDefaultInstance();
+    private final IGenetics instance = GENETICS_CAPABILITY.getDefaultInstance();
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
         return capability == GENETICS_CAPABILITY;
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        return capability == GENETICS_CAPABILITY ? GENETICS_CAPABILITY.<T> cast(this.instance) : null;
+        return capability == GENETICS_CAPABILITY ? GENETICS_CAPABILITY.cast(this.instance) : null;
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public NBTBase serializeNBT() {
         return GENETICS_CAPABILITY.getStorage().writeNBT(GENETICS_CAPABILITY, this.instance, null);

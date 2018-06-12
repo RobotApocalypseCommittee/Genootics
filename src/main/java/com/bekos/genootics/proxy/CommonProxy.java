@@ -5,8 +5,10 @@ import com.bekos.genootics.genetics.GeneticsHandler;
 import com.bekos.genootics.genetics.GeneticsStorage;
 import com.bekos.genootics.genetics.IGenetics;
 import com.bekos.genootics.GenooticsMod;
+import com.bekos.genootics.item.BasePetriDish;
 import com.bekos.genootics.machines.GuiProxy;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -33,7 +35,7 @@ public class CommonProxy {
     public void registerItemRenderer(Item item, int meta, String id) {
     }
 
-    public void openPetriGui() {
+    public void openPetriGui(ItemStack petriDish) {
 
     }
 }

@@ -7,6 +7,7 @@ import net.minecraftforge.common.util.Constants;
 
 import java.util.Iterator;
 
+@SuppressWarnings("unused")
 public abstract class EntityHandlerGeneric {
 
     public static NBTTagCompound changeEntityHealth(Double value, Double dominance, NBTTagCompound priorCompound) {

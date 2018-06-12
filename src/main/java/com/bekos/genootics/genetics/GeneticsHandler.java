@@ -8,7 +8,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class GeneticsHandler {
-    public static final ResourceLocation GENETICS_CAPABILITY = new ResourceLocation(GenooticsMod.MODID, "genetics");
+    private static final ResourceLocation GENETICS_CAPABILITY = new ResourceLocation(GenooticsMod.MODID, "genetics");
 
     @SubscribeEvent
     public void attachCapability(AttachCapabilitiesEvent<Entity> event) {

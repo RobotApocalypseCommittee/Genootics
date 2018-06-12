@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Map;
 
+@SuppressWarnings("ConstantConditions")
 @Mod.EventBusSubscriber
 public class MobSpawnEventHandler {
 

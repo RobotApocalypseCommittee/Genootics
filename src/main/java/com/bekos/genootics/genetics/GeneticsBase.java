@@ -50,6 +50,10 @@ public class GeneticsBase implements IGenetics {
 
     @Override
     public List<Map<String, Double>> getAllGenes() {
+        return getMaps(genesLeft, genesRight, genesExpressed);
+    }
+
+    private List<Map<String, Double>> getMaps(Map<String, Double> genesLeft, Map<String, Double> genesRight, Map<String, Double> genesExpressed) {
         List<Map<String, Double>> mapList = new ArrayList<>();
         mapList.add(genesLeft);
         mapList.add(genesRight);
@@ -59,15 +63,15 @@ public class GeneticsBase implements IGenetics {
 
     @Override
     public List<Map<String, Double>> getAllGenesDominances() {
-        List<Map<String, Double>> mapList = new ArrayList<>();
-        mapList.add(genesLeftDominance);
-        mapList.add(genesRightDominance);
-        mapList.add(genesExpressedDominance);
-        return mapList;
+        return getMaps(genesLeftDominance, genesRightDominance, genesExpressedDominance);
     }
 
     @Override
     public Map<String, Double> getGenes(GeneticsSide side) {
+        return getGeneStringDoubleMap(side, genesLeft, genesRight, genesExpressed);
+    }
+
+    private Map<String, Double> getGeneStringDoubleMap(GeneticsSide side, Map<String, Double> genesLeft, Map<String, Double> genesRight, Map<String, Double> genesExpressed) {
         switch (side) {
             case LEFT: return genesLeft;
             case RIGHT: return genesRight;
@@ -77,11 +81,7 @@ public class GeneticsBase implements IGenetics {
 
     @Override
     public Map<String, Double> getGenesDominance(GeneticsSide side) {
-        switch (side) {
-            case LEFT: return genesLeftDominance;
-            case RIGHT: return genesRightDominance;
-            default: return genesExpressedDominance;
-        }
+        return getGeneStringDoubleMap(side, genesLeftDominance, genesRightDominance, genesExpressedDominance);
     }
 
     @Override

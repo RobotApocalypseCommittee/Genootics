@@ -2,9 +2,11 @@ package com.bekos.genootics.proxy;
 
 import com.bekos.genootics.GenooticsMod;
 import com.bekos.genootics.gui.GuiPetri;
+import com.bekos.genootics.item.BasePetriDish;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.model.ModelLoader;
 
 public class ClientProxy extends CommonProxy {
@@ -15,7 +17,7 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void openPetriGui() {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiPetri());
+    public void openPetriGui(ItemStack petriDish) {
+        Minecraft.getMinecraft().displayGuiScreen(new GuiPetri(petriDish));
     }
 }
