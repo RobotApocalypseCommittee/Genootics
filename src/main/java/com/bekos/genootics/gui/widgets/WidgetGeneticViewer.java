@@ -11,8 +11,9 @@ public class WidgetGeneticViewer extends Widget {
     private HashMap<String, Double> genes;
     private HashMap<String, Double> genesDominance;
 
-    public WidgetGeneticViewer(int width, int height) {
+    public WidgetGeneticViewer(int width, int height, HashMap<String, Double> genes, HashMap<String, Double> genesDominance) {
         super(width, height);
+        updateGenetics(genes, genesDominance);
     }
 
     public void updateGenetics(HashMap<String, Double> genes, HashMap<String, Double> genesDominance) {
@@ -21,10 +22,7 @@ public class WidgetGeneticViewer extends Widget {
     }
 
     private Color calculateColour(Double number) {
-        int r = (int)(Math.random() * ((255) + 1));
-        int g = (int)(Math.random() * ((255) + 1));
-        int b = (int)(Math.random() * ((255) + 1));
-        return new Color(0xFF000000 | r << 16 | g << 8 | b, true);
+        return Color.getHSBColor(number.floatValue(), 1, 1);
 
     }
 
@@ -39,10 +37,10 @@ public class WidgetGeneticViewer extends Widget {
             int pixels = (int) ((float) height / (float) len);
             int i = 0;
             for (String gene: this.genes.keySet()) {
-                Renderer.drawRect(x, y+(i*pixels), x+width, y+((i+1)*pixels), calculateColour(genesDominance.get(gene)));
-                System.out.print(x);
-                System.out.print(y+(i*pixels));
-                System.out.print(x+width);
+                Renderer.drawRect(x, y+(i*pixels), width, ((i+1)*pixels), calculateColour(genesDominance.get(gene)));
+                System.out.println(x);
+                System.out.println(y+(i*pixels));
+                System.out.println(x+width);
                 System.out.println(y+((i+1)*pixels));
             }
         }
