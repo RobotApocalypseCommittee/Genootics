@@ -1,17 +1,18 @@
 package com.bekos.genootics.gui.widgets;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 
+import com.bekos.genootics.gui.helpers.Renderer;
+
+import java.awt.*;
 import java.util.HashMap;
 
 public class WidgetGeneticViewer extends Widget {
 
     private HashMap<String, Double> genes;
     private HashMap<String, Double> genesDominance;
-    public WidgetGeneticViewer(Minecraft mc, Gui gui) {
-        super(mc, gui);
 
+    public WidgetGeneticViewer(int width, int height) {
+        super(width, height);
     }
 
     public void updateGenetics(HashMap<String, Double> genes, HashMap<String, Double> genesDominance) {
@@ -19,27 +20,36 @@ public class WidgetGeneticViewer extends Widget {
         this.genesDominance = genesDominance;
     }
 
-    private int calculateColour(Double dominance) {
-        return 0xFF0000;
+    private Color calculateColour(Double number) {
+        int r = (int)(Math.random() * ((255) + 1));
+        int g = (int)(Math.random() * ((255) + 1));
+        int b = (int)(Math.random() * ((255) + 1));
+        return new Color(0xFF000000 | r << 16 | g << 8 | b, true);
+
     }
 
-
     @Override
-    public void renderForeground(int x, int y, int h, int w) {
+    public void draw(int mouseX, int mouseY) {
+        int x = scaledLocation.x;
+        int y = scaledLocation.y;
+
         int len = this.genes.size();
-        // This will lose some space at the bottom, naturally
-        int pixels = (int) ((float) len / (float) h);
-        int i = 0;
-        System.out.println(len);
-        for (String gene: this.genes.keySet()) {
-            Gui.drawRect(x, y+(i*pixels), x+w, y+((i+1)*pixels), calculateColour(genesDominance.get(gene)));
-            System.out.println("Draw Rect");
+        if (len > 0) {
+            // This will lose some space at the bottom, naturally
+            int pixels = (int) ((float) height / (float) len);
+            int i = 0;
+            for (String gene: this.genes.keySet()) {
+                Renderer.drawRect(x, y+(i*pixels), x+width, y+((i+1)*pixels), calculateColour(genesDominance.get(gene)));
+                System.out.print(x);
+                System.out.print(y+(i*pixels));
+                System.out.print(x+width);
+                System.out.println(y+((i+1)*pixels));
+            }
         }
     }
 
     @Override
-    public void renderBackground(int x, int y, int h, int w) {
-
+    public void drawTooltip(int mouseX, int mouseY) {
 
     }
 }

@@ -1,16 +1,46 @@
 package com.bekos.genootics.gui.widgets;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
+
+import com.bekos.genootics.gui.helpers.Point;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 public abstract class Widget {
-    protected Minecraft mc;
-    protected Gui gui;
+    public Point rawLocation;
+    protected Point scaledLocation;
+    int width;
+    int height;
+    protected Set<Widget> children = new LinkedHashSet<>();
 
-    public Widget(Minecraft mc, Gui gui) {
-        this.gui = gui;
-        this.mc = mc;
+    public Widget(int width, int height) {
+        setDimensions(width, height);
     }
-    public abstract void renderForeground(int x, int y, int w, int h);
-    public abstract void renderBackground(int x, int y, int w, int h);
+
+    public Widget addWidget(Widget widget, Point location) {
+        children.add(widget);
+        widget.rawLocation = location;
+        return this;
+    }
+
+    public void setDimensions(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
+    public Widget layout(Point location) {
+        this.scaledLocation = location;
+
+        for (Widget w : children) {
+            w.layout(new Point(w.rawLocation).translate(location));
+        }
+        return this;
+    }
+
+    public void draw(int mouseX, int mouseY) {
+        children.forEach(e -> e.draw(mouseX, mouseY));
+    }
+
+    public void drawTooltip(int mouseX, int mouseY){
+        children.forEach(e -> e.drawTooltip(mouseX, mouseY));
+    }
 }

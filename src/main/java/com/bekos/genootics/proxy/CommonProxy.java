@@ -27,6 +27,7 @@ public class CommonProxy {
     }
 
     public void postInit(FMLPostInitializationEvent e) {
+
     }
 
     public void registerItemRenderer(Item item, int meta, String id) {
