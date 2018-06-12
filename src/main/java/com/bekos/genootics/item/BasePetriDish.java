@@ -72,7 +72,7 @@ public abstract class BasePetriDish extends ItemBase {
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer playerIn, EnumHand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
         if (!world.isRemote) {
-            GenooticsMod.proxy.openPetriGui();
+            GenooticsMod.proxy.openPetriGui(stack);
         }
 
 
