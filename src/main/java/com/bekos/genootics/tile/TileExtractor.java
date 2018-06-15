@@ -4,6 +4,7 @@ import com.bekos.genootics.item.BasePetriDish;
 import com.bekos.genootics.item.ItemSyringe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
+import scala.xml.dtd.impl.Base;
 
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class TileExtractor extends TileMachine {
                 ItemStack petri = this.itemStackHandler.getStackInSlot(2);
                 List<NBTTagList> genesinfo = sitem.getBloodGeneInformation(syringe);
                 if (genesinfo.size() >= 2) {
-                    ((BasePetriDish) petri.getItem()).setGenes(petri, genesinfo.get(0), genesinfo.get(1));
+                    BasePetriDish.setGenes(petri, genesinfo.get(0), genesinfo.get(1));
                     this.itemStackHandler.setStackInSlot(3, petri.copy());
                     this.itemStackHandler.extractItem(2, 1, false);
                     this.itemStackHandler.extractItem(1, 1, false);

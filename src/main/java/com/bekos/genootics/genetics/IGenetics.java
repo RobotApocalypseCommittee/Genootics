@@ -8,18 +8,18 @@ public interface IGenetics {
 
     boolean hasBeenEdited();
 
-    boolean hasGene(String gene, GeneticsSide side);
-    Double getGeneValue(String gene, GeneticsSide side);
+    boolean hasGene(Gene gene, GeneticsSide side);
+    Double getGeneValue(Gene gene, GeneticsSide side);
 
-    List<Map<String, Double>> getAllGenes();
-    List<Map<String, Double>> getAllGenesDominances();
+    List<Map<Gene, Double>> getAllGenes();
+    List<Map<Gene, Double>> getAllGenesDominances();
 
-    Map<String, Double> getGenes(GeneticsSide side);
+    Map<Gene, Double> getGenes(GeneticsSide side);
 
-    Map<String, Double> getGenesDominance(GeneticsSide side);
+    Map<Gene, Double> getGenesDominance(GeneticsSide side);
 
-    void setGenes(Map<String, Double> genes, Map<String, Double> geneDominance, GeneticsSide side);
-    void setAllGenes(List<Map<String, Double>> genes, List<Map<String, Double>> geneDominance);
+    void setGenes(Map<Gene, Double> genes, Map<Gene, Double> geneDominance, GeneticsSide side);
+    void setAllGenes(List<Map<Gene, Double>> genes, List<Map<Gene, Double>> geneDominance);
 
     void setGM(boolean isGM);
 

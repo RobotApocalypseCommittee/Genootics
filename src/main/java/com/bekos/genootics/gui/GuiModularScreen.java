@@ -58,6 +58,9 @@ public class GuiModularScreen extends GuiScreen {
     }
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        if (this.mc == null){
+            this.mc = Minecraft.getMinecraft();
+        }
         drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
 

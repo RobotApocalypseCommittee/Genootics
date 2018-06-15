@@ -1,6 +1,7 @@
 package com.bekos.genootics.item;
 
 import com.bekos.genootics.GenooticsMod;
+import com.bekos.genootics.genetics.Gene;
 import com.bekos.genootics.util.NBTParser;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.client.renderer.ItemMeshDefinition;
@@ -65,7 +66,7 @@ public abstract class BasePetriDish extends ItemBase {
         getTagCompoundSafe(stack).setTag("AllGenesDom", allGenesDom);
     }
 
-    public static void setGenes(ItemStack stack, List<Map<String, Double>> geneMap, List<Map<String, Double>> geneDomMap) {
+    public static void setGenes(ItemStack stack, List<Map<Gene, Double>> geneMap, List<Map<Gene, Double>> geneDomMap) {
         getTagCompoundSafe(stack).setTag("AllGenes", NBTParser.convertMapListToNBT(geneMap));
         getTagCompoundSafe(stack).setTag("AllGenesDom", NBTParser.convertMapListToNBT(geneDomMap));
     }

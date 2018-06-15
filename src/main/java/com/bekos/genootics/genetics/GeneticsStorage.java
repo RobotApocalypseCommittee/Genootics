@@ -45,8 +45,8 @@ public class GeneticsStorage implements Capability.IStorage<IGenetics> {
 
             instance.setHasBeenEdited(compound.getBoolean("HasBeenEdited"));
 
-            List<Map<String, Double>> allGenes = NBTParser.convertNBTToMapList(compound.getTagList("AllGenes", Constants.NBT.TAG_LIST));
-            List<Map<String, Double>> allGenesDom = NBTParser.convertNBTToMapList(compound.getTagList("AllGenesDom", Constants.NBT.TAG_LIST));
+            List<Map<Gene, Double>> allGenes = NBTParser.convertNBTToMapList(compound.getTagList("AllGenes", Constants.NBT.TAG_LIST));
+            List<Map<Gene, Double>> allGenesDom = NBTParser.convertNBTToMapList(compound.getTagList("AllGenesDom", Constants.NBT.TAG_LIST));
 
             System.out.println(allGenes);
 

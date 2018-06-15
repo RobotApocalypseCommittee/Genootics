@@ -29,8 +29,8 @@ public class BabySpawnEventHandler {
         IGenetics childGenetics = baseChild.getCapability(GeneticsProvider.GENETICS_CAPABILITY, null);
         childGenetics.setGM(true);
 
-        List<Map<String, Double>> fatherGamete = getRandomGenes(fatherGenetics);
-        List<Map<String, Double>> motherGamete = getRandomGenes(motherGenetics);
+        List<Map<Gene, Double>> fatherGamete = getRandomGenes(fatherGenetics);
+        List<Map<Gene, Double>> motherGamete = getRandomGenes(motherGenetics);
 
         childGenetics.setGenes(fatherGamete.get(0), fatherGamete.get(1), GeneticsSide.LEFT);
         childGenetics.setGenes(motherGamete.get(0), motherGamete.get(1), GeneticsSide.RIGHT);
@@ -42,18 +42,18 @@ public class BabySpawnEventHandler {
     }
 
     @SuppressWarnings("unused")
-    private static List<Map<String, Double>> getRandomGenes(IGenetics parentGenetics) {
+    private static List<Map<Gene, Double>> getRandomGenes(IGenetics parentGenetics) {
         // Basically chooses left or right for each, or if there is no equivalent on the other side,
         // right/left or nothing
-        List<Map<String, Double>> returnGeneList = new ArrayList<>();
+        List<Map<Gene, Double>> returnGeneList = new ArrayList<>();
 
         Random random = new Random();
 
-        Map<String, Double> parentLeftGenes = parentGenetics.getGenes(GeneticsSide.LEFT);
-        Map<String, Double> parentRightGenes = parentGenetics.getGenes(GeneticsSide.RIGHT);
+        Map<Gene, Double> parentLeftGenes = parentGenetics.getGenes(GeneticsSide.LEFT);
+        Map<Gene, Double> parentRightGenes = parentGenetics.getGenes(GeneticsSide.RIGHT);
 
-        Map<String, Double> parentLeftGenesDom = parentGenetics.getGenesDominance(GeneticsSide.LEFT);
-        Map<String, Double> parentRightGenesDom = parentGenetics.getGenesDominance(GeneticsSide.RIGHT);
+        Map<Gene, Double> parentLeftGenesDom = parentGenetics.getGenesDominance(GeneticsSide.LEFT);
+        Map<Gene, Double> parentRightGenesDom = parentGenetics.getGenesDominance(GeneticsSide.RIGHT);
 
         if (parentLeftGenes == parentRightGenes && parentLeftGenesDom == parentRightGenesDom) {
             returnGeneList.add(parentLeftGenes);
@@ -61,10 +61,10 @@ public class BabySpawnEventHandler {
             return returnGeneList;
         }
 
-        Map<String, Double> gameteGenes = new HashMap<>();
-        Map<String, Double> gameteGenesDom = new HashMap<>();
+        Map<Gene, Double> gameteGenes = new HashMap<>();
+        Map<Gene, Double> gameteGenesDom = new HashMap<>();
 
-        for (Map.Entry<String, Double> gene : parentLeftGenes.entrySet()) {
+        for (Map.Entry<Gene, Double> gene : parentLeftGenes.entrySet()) {
             if (parentRightGenes.containsKey(gene.getKey())) {
                 if (random.nextDouble() > 0.5) {
                     gameteGenes.put(gene.getKey(), gene.getValue());
@@ -82,7 +82,7 @@ public class BabySpawnEventHandler {
             }
         }
 
-        for (Map.Entry<String, Double> gene : parentRightGenes.entrySet()) {
+        for (Map.Entry<Gene, Double> gene : parentRightGenes.entrySet()) {
             if (random.nextDouble() > 0.5) {
                 gameteGenes.put(gene.getKey(), gene.getValue());
                 gameteGenesDom.put(gene.getKey(), parentRightGenesDom.get(gene.getKey()));

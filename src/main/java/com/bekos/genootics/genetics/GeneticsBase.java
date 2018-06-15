@@ -11,14 +11,14 @@ public class GeneticsBase implements IGenetics {
     // IMPORTANT: Gene values are to be percentages (perfection) or simple values (like Jump Boost lvl _2.5_) that you know
     // have some mathematical relevance to compute the aspect you want, but not necessarily it exactly
 
-    private Map<String, Double> genesLeft = new HashMap<>();
-    private Map<String, Double> genesLeftDominance = new HashMap<>();
+    private Map<Gene, Double> genesLeft = new HashMap<>();
+    private Map<Gene, Double> genesLeftDominance = new HashMap<>();
 
-    private Map<String, Double> genesRight = new HashMap<>();
-    private Map<String, Double> genesRightDominance = new HashMap<>();
+    private Map<Gene, Double> genesRight = new HashMap<>();
+    private Map<Gene, Double> genesRightDominance = new HashMap<>();
 
-    private Map<String, Double> genesExpressed = new HashMap<>();
-    private Map<String, Double> genesExpressedDominance = new HashMap<>();
+    private Map<Gene, Double> genesExpressed = new HashMap<>();
+    private Map<Gene, Double> genesExpressedDominance = new HashMap<>();
 
     @Override
     public boolean isGM() {
@@ -31,7 +31,7 @@ public class GeneticsBase implements IGenetics {
     }
 
     @Override
-    public boolean hasGene(String gene, GeneticsSide side) {
+    public boolean hasGene(Gene gene, GeneticsSide side) {
         switch (side) {
             case LEFT: return genesLeft.containsKey(gene);
             case RIGHT: return genesRight.containsKey(gene);
@@ -40,7 +40,7 @@ public class GeneticsBase implements IGenetics {
     }
 
     @Override
-    public Double getGeneValue(String gene, GeneticsSide side) {
+    public Double getGeneValue(Gene gene, GeneticsSide side) {
         switch (side) {
             case LEFT: return genesLeft.get(gene);
             case RIGHT: return genesRight.get(gene);
@@ -49,12 +49,12 @@ public class GeneticsBase implements IGenetics {
     }
 
     @Override
-    public List<Map<String, Double>> getAllGenes() {
+    public List<Map<Gene, Double>> getAllGenes() {
         return getMaps(genesLeft, genesRight, genesExpressed);
     }
 
-    private List<Map<String, Double>> getMaps(Map<String, Double> genesLeft, Map<String, Double> genesRight, Map<String, Double> genesExpressed) {
-        List<Map<String, Double>> mapList = new ArrayList<>();
+    private List<Map<Gene, Double>> getMaps(Map<Gene, Double> genesLeft, Map<Gene, Double> genesRight, Map<Gene, Double> genesExpressed) {
+        List<Map<Gene, Double>> mapList = new ArrayList<>();
         mapList.add(genesLeft);
         mapList.add(genesRight);
         mapList.add(genesExpressed);
@@ -62,16 +62,16 @@ public class GeneticsBase implements IGenetics {
     }
 
     @Override
-    public List<Map<String, Double>> getAllGenesDominances() {
+    public List<Map<Gene, Double>> getAllGenesDominances() {
         return getMaps(genesLeftDominance, genesRightDominance, genesExpressedDominance);
     }
 
     @Override
-    public Map<String, Double> getGenes(GeneticsSide side) {
+    public Map<Gene, Double> getGenes(GeneticsSide side) {
         return getGeneStringDoubleMap(side, genesLeft, genesRight, genesExpressed);
     }
 
-    private Map<String, Double> getGeneStringDoubleMap(GeneticsSide side, Map<String, Double> genesLeft, Map<String, Double> genesRight, Map<String, Double> genesExpressed) {
+    private Map<Gene, Double> getGeneStringDoubleMap(GeneticsSide side, Map<Gene, Double> genesLeft, Map<Gene, Double> genesRight, Map<Gene, Double> genesExpressed) {
         switch (side) {
             case LEFT: return genesLeft;
             case RIGHT: return genesRight;
@@ -80,12 +80,12 @@ public class GeneticsBase implements IGenetics {
     }
 
     @Override
-    public Map<String, Double> getGenesDominance(GeneticsSide side) {
+    public Map<Gene, Double> getGenesDominance(GeneticsSide side) {
         return getGeneStringDoubleMap(side, genesLeftDominance, genesRightDominance, genesExpressedDominance);
     }
 
     @Override
-    public void setGenes(Map<String, Double> genes, Map<String, Double> geneDominance, GeneticsSide side) {
+    public void setGenes(Map<Gene, Double> genes, Map<Gene, Double> geneDominance, GeneticsSide side) {
         if (!(genes.keySet().equals(geneDominance.keySet()))) {
             throw new GeneticsMismatchException("Gene and Gene Dominance maps must refer to the same genes (the same keys)");
         }
@@ -107,7 +107,7 @@ public class GeneticsBase implements IGenetics {
     }
 
     @Override
-    public void setAllGenes(List<Map<String, Double>> genes, List<Map<String, Double>> geneDominance) {
+    public void setAllGenes(List<Map<Gene, Double>> genes, List<Map<Gene, Double>> geneDominance) {
         for (int i=0; i < 3; i++) {
             if (!(genes.get(i).keySet().equals(geneDominance.get(i).keySet()))) {
                 throw new GeneticsMismatchException("Gene and Gene Dominance maps must refer to the same genes (the same keys)");
@@ -139,13 +139,13 @@ public class GeneticsBase implements IGenetics {
             genesExpressed = genesLeft;
             genesExpressedDominance = genesLeftDominance;
         } else {
-            List<Map<String, Double>> geneList = computeResultantGenes();
+            List<Map<Gene, Double>> geneList = computeResultantGenes();
             genesExpressed = geneList.get(0);
             genesExpressedDominance = geneList.get(1);
         }
     }
 
-    private List<Map<String, Double>> computeResultantGenes() {
+    private List<Map<Gene, Double>> computeResultantGenes() {
         /* Long story short, if the gene is shared, it checks the more dominant one
          * and then displays that (after slight modification to its effect and dominance)
          * or if it is unique, it has a 70% chance of being expressed (thematically because
@@ -154,14 +154,14 @@ public class GeneticsBase implements IGenetics {
 
         Random random = new Random();
 
-        Map<String, Double> resultantGenes = new HashMap<>();
-        Map<String, Double> resultantGenesDominance = new HashMap<>();
+        Map<Gene, Double> resultantGenes = new HashMap<>();
+        Map<Gene, Double> resultantGenesDominance = new HashMap<>();
 
         // Needed for the sole reason that some genes are deleted for it to work faster,
         // but the genes should not _actually_ be deleted
-        Map<String, Double> copyOfGenesRight = new HashMap<>(genesRight);
+        Map<Gene, Double> copyOfGenesRight = new HashMap<>(genesRight);
 
-        for (Map.Entry<String, Double> gene : genesLeft.entrySet()) {
+        for (Map.Entry<Gene, Double> gene : genesLeft.entrySet()) {
             if (genesRight.containsKey(gene.getKey())) {
                 if (Objects.equals(genesLeftDominance.get(gene.getKey()), genesRightDominance.get((gene.getKey())))) {
                     if (random.nextDouble() > 0.5) {
@@ -188,14 +188,14 @@ public class GeneticsBase implements IGenetics {
             }
         }
 
-        for (Map.Entry<String, Double> gene : copyOfGenesRight.entrySet()) {
+        for (Map.Entry<Gene, Double> gene : copyOfGenesRight.entrySet()) {
             if (random.nextFloat() < 0.7) {
                 resultantGenes.put(gene.getKey(), gene.getValue()*(0.7 + random.nextDouble() * (1.0-0.7)));
                 resultantGenesDominance.put(gene.getKey(), genesRightDominance.get(gene.getKey())*(0.7 + random.nextDouble() * (1.0-0.7)));
             }
         }
 
-        List<Map<String, Double>> returnList = new ArrayList<>();
+        List<Map<Gene, Double>> returnList = new ArrayList<>();
         returnList.add(resultantGenes);
         returnList.add(resultantGenesDominance);
 

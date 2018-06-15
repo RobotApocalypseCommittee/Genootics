@@ -1,6 +1,7 @@
 package com.bekos.genootics.commands;
 
 import com.bekos.genootics.GenooticsMod;
+import com.bekos.genootics.genetics.Gene;
 import com.bekos.genootics.genetics.GeneticsBase;
 import com.bekos.genootics.genetics.GeneticsProvider;
 import com.bekos.genootics.util.NBTParser;
@@ -100,7 +101,7 @@ public class CommandSummonGeneticallyModified extends CommandBase {
             entityGenetics.setGM(true);
 
             if (args.length == 2 || args.length == 5) {
-                Map<String, Double> geneMap;
+                Map<Gene, Double> geneMap;
 
                 try {
                     int argPos;
@@ -116,16 +117,16 @@ public class CommandSummonGeneticallyModified extends CommandBase {
                     throw new CommandException("commands.genootics.summon_gm.tagError", new Object[] {e.getMessage()});
                 }
 
-                List<Map<String, Double>> geneList = new ArrayList<>();
+                List<Map<Gene, Double>> geneList = new ArrayList<>();
                 geneList.add(geneMap);
                 geneList.add(geneMap);
                 geneList.add(geneMap);
 
-                Map<String, Double> dominanceMap = new HashMap<>();
-                for (String key : geneMap.keySet()) {
+                Map<Gene, Double> dominanceMap = new HashMap<>();
+                for (Gene key : geneMap.keySet()) {
                     dominanceMap.put(key, 2.0);
                 }
-                List<Map<String, Double>> geneDomList = new ArrayList<>();
+                List<Map<Gene, Double>> geneDomList = new ArrayList<>();
                 geneDomList.add(dominanceMap);
                 geneDomList.add(dominanceMap);
                 geneDomList.add(dominanceMap);
