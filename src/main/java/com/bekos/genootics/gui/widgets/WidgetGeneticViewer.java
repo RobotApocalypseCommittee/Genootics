@@ -46,7 +46,7 @@ public class WidgetGeneticViewer extends Widget {
             for (Gene gene: this.genes.keySet()) {
                 geneOrder.add(gene);
                 i = geneOrder.size()-1;
-                Renderer.drawRect(x, y+(i*pixels), width, pixels, calculateColour(genesDominance.get(gene)));
+                Renderer.drawRect(x, y+(i*pixels), width, pixels, gene.getColor());
                 System.out.println(x);
                 System.out.println(y+(i*pixels));
                 System.out.println(x+width);
