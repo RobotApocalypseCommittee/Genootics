@@ -3,7 +3,8 @@ package com.bekos.genootics.gui.widgets;
 
 import com.bekos.genootics.genetics.Gene;
 import com.bekos.genootics.gui.helpers.Renderer;
-import scala.actors.threadpool.Arrays;
+
+import net.minecraft.util.text.TextFormatting;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -15,10 +16,12 @@ public class WidgetGeneticViewer extends Widget {
     private HashMap<Gene, Double> genes;
     private HashMap<Gene, Double> genesDominance;
     private List<Gene> geneOrder;
+    private int level;
 
-    public WidgetGeneticViewer(int width, int height, HashMap<Gene, Double> genes, HashMap<Gene, Double> genesDominance) {
+    public WidgetGeneticViewer(int width, int height, HashMap<Gene, Double> genes, HashMap<Gene, Double> genesDominance, int level) {
         super(width, height);
         geneOrder = new ArrayList<>();
+        this.level = level;
         updateGenetics(genes, genesDominance);
     }
 
@@ -47,10 +50,6 @@ public class WidgetGeneticViewer extends Widget {
                 geneOrder.add(gene);
                 i = geneOrder.size()-1;
                 Renderer.drawRect(x, y+(i*pixels), width, pixels, gene.getColor());
-                System.out.println(x);
-                System.out.println(y+(i*pixels));
-                System.out.println(x+width);
-                System.out.println(y+((i+1)*pixels));
             }
         }
     }
@@ -62,6 +61,12 @@ public class WidgetGeneticViewer extends Widget {
             int i = (int) (((float)(mouseY - this.scaledLocation.y) / (float) height) * (float) this.genes.size());
             ArrayList<String> message = new ArrayList<>();
             message.add(geneOrder.get(i).getLocalisedName());
+            if (level > 0){
+                message.add(TextFormatting.RED + genesDominance.get(geneOrder.get(i)).toString());
+            }
+            if (level > 1) {
+                message.add(TextFormatting.GOLD + genes.get(geneOrder.get(i)).toString());
+            }
             Renderer.drawHoveringText(message, mouseX, mouseY);
         }
 

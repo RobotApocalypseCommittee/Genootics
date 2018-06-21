@@ -4,6 +4,6 @@ public class ItemPetriDishIron extends BasePetriDish {
 
 
     public ItemPetriDishIron() {
-        super("itemPetriDishIron", 1, 0.5);
+        super("itemPetriDishIron", 1, 0.5, 1);
     }
 }

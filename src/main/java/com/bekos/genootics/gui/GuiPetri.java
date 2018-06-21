@@ -31,7 +31,9 @@ public class GuiPetri extends GuiModularScreen {
             genesDom = NBTParser.convertNBTToMapList(geneInfo.get(1));
         }
         addWidget(new WidgetGeneticViewer(20, 100, (HashMap<Gene, Double>) genes.get(0),
-                (HashMap<Gene, Double>) genesDom.get(0)), new Point(10, 10));
+                (HashMap<Gene, Double>) genesDom.get(0), BasePetriDish.getLevel(petriDish)), new Point(10, 10));
+        addWidget(new WidgetGeneticViewer(20, 100, (HashMap<Gene, Double>) genes.get(1),
+                (HashMap<Gene, Double>) genesDom.get(1), BasePetriDish.getLevel(petriDish)), new Point(100, 10));
 
     }
 

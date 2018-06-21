@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ActionResult;
@@ -25,9 +26,10 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class BasePetriDish extends ItemBase {
-
-    public BasePetriDish(String name, int slots, Double degradation) {
+    public int level = 0;
+    public BasePetriDish(String name, int slots, Double degradation, int level) {
         super(name);
+        this.level = level;
         //TODO implement the extra args
     }
 
@@ -69,6 +71,10 @@ public abstract class BasePetriDish extends ItemBase {
     public static void setGenes(ItemStack stack, List<Map<Gene, Double>> geneMap, List<Map<Gene, Double>> geneDomMap) {
         getTagCompoundSafe(stack).setTag("AllGenes", NBTParser.convertMapListToNBT(geneMap));
         getTagCompoundSafe(stack).setTag("AllGenesDom", NBTParser.convertMapListToNBT(geneDomMap));
+    }
+
+    public static int getLevel(ItemStack stack) {
+        return ((BasePetriDish) stack.getItem()).level;
     }
 
     @Override

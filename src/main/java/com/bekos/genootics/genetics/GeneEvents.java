@@ -65,7 +65,7 @@ public class GeneEvents {
             case "Health": compound = EntityHandlerGeneric.changeEntityHealth(value, dominance, priorCompound); break;
             case "MovementSpeed": compound = EntityHandlerGeneric.changeEntityMovementSpeed(value, dominance, priorCompound); break;
         }*/
-        compound = gene.onAppliedAnimalSpawned(priorCompound, value, dominance);
+        compound = gene.onAppliedAnimalSpawned(value, dominance, priorCompound);
         return compound;
     }
 
