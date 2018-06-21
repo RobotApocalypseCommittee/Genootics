@@ -4,7 +4,6 @@ import com.bekos.genootics.GenooticsMod;
 import com.bekos.genootics.genetics.Gene;
 import com.bekos.genootics.gui.helpers.Point;
 import com.bekos.genootics.gui.widgets.WidgetGeneticViewer;
-import com.bekos.genootics.gui.widgets.WidgetRectangle;
 import com.bekos.genootics.gui.widgets.WidgetTexture;
 import com.bekos.genootics.item.BasePetriDish;
 import com.bekos.genootics.util.NBTParser;
@@ -38,15 +37,4 @@ public class GuiPetri extends GuiModularScreen {
     }
 
 
-
-    @Override
-    public void initGui() {
-        super.initGui();
-
-    }
-
-    @Override
-    public void updateScreen() {
-        super.updateScreen();
-    }
 }

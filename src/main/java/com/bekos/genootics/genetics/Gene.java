@@ -2,7 +2,6 @@ package com.bekos.genootics.genetics;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import java.awt.*;

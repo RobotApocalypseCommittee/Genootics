@@ -4,7 +4,6 @@ import com.bekos.genootics.GenooticsMod;
 import com.bekos.genootics.genetics.GeneticsBase;
 import com.bekos.genootics.genetics.GeneticsProvider;
 import com.bekos.genootics.util.NBTParser;
-import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityList;

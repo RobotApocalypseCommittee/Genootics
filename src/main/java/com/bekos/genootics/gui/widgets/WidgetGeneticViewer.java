@@ -45,7 +45,7 @@ public class WidgetGeneticViewer extends Widget {
             // This will lose some space at the bottom, naturally
             int pixels = (int) ((float) height / (float) len);
             geneOrder.clear();
-            int i = 0;
+            int i;
             for (Gene gene: this.genes.keySet()) {
                 geneOrder.add(gene);
                 i = geneOrder.size()-1;

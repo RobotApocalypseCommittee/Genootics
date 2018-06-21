@@ -4,7 +4,6 @@ import com.bekos.genootics.item.BasePetriDish;
 import com.bekos.genootics.item.ItemSyringe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
-import scala.xml.dtd.impl.Base;
 
 import java.util.List;
 

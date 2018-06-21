@@ -2,9 +2,6 @@ package com.bekos.genootics.gui.widgets;
 
 import com.bekos.genootics.gui.helpers.Point;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 public interface IWidget {
     IWidget addWidget(IWidget widget, Point location);
 

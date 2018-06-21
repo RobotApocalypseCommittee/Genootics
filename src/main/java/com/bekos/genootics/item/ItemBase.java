@@ -1,13 +1,10 @@
 package com.bekos.genootics.item;
 
 import com.bekos.genootics.GenooticsMod;
-import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-
-import javax.annotation.ParametersAreNonnullByDefault;
 
 public class ItemBase extends Item {
     String name;

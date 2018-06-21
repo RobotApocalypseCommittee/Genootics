@@ -1,7 +1,6 @@
 package com.bekos.genootics.genetics;
 
 import com.bekos.genootics.GenooticsMod;
-import com.bekos.genootics.genetics.entityhandler.EntityHandlerGeneric;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

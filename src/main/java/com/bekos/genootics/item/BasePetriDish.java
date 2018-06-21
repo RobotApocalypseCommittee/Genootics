@@ -3,12 +3,9 @@ package com.bekos.genootics.item;
 import com.bekos.genootics.GenooticsMod;
 import com.bekos.genootics.genetics.Gene;
 import com.bekos.genootics.util.NBTParser;
-import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ActionResult;
@@ -20,13 +17,12 @@ import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public abstract class BasePetriDish extends ItemBase {
-    public int level = 0;
+    public int level;
     public BasePetriDish(String name, int slots, Double degradation, int level) {
         super(name);
         this.level = level;

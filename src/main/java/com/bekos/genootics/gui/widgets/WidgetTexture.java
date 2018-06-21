@@ -3,8 +3,6 @@ package com.bekos.genootics.gui.widgets;
 import com.bekos.genootics.gui.helpers.Renderer;
 import net.minecraft.util.ResourceLocation;
 
-import java.awt.*;
-
 public class WidgetTexture extends Widget {
     private ResourceLocation texture;
     private int texX, texY;
