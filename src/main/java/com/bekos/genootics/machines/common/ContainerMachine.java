@@ -106,7 +106,6 @@ public abstract class ContainerMachine<TE extends TileMachine> extends Container
                 listener.sendWindowProperty(this, 0, this.cachedEnergyStored);
             }
             if (completenessHasChanged) {
-                System.out.println("COMPLETENESS HAS CHANGED");
                 listener.sendWindowProperty(this, 1, this.cachedTickRemaining);
             }
         }

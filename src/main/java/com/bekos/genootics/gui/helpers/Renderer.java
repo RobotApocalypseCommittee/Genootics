@@ -21,6 +21,16 @@ import java.util.List;
  */
 public class Renderer {
 
+    public static void drawEmbeddedBox(int x, int y, int width, int height) {
+        drawRect(x, y, width, height, Color.decode("#8B8B8B"));
+        drawRect(x, y, width-1, height-1, Color.decode("#373737"));
+        drawRect(x+1, y+1, width-1, height-1, Color.decode("#FFFFFF"));
+        drawRect(x+1, y+1, width-2, height-2, Color.decode("#8B8B8B"));
+    }
+    public static void drawBoundingEmbeddedBox(int x, int y, int width, int height) {
+        drawEmbeddedBox(x-1, y-1, width+2, height+2);
+    }
+
     public static boolean isWithinBounds(int x, int y, int minX, int minY, int maxX, int maxY) {
         return x >= minX && x <= maxX && y >= minY && y <= maxY;
     }
@@ -200,14 +210,14 @@ public class Renderer {
     }
 
     public static void drawGradientRect(int zLevel, int left, int top, int right, int bottom, int startColor, int endColor) {
-        float startAlpha = (float)(startColor >> 24 & 255) / 255.0F;
-        float startRed = (float)(startColor >> 16 & 255) / 255.0F;
-        float startGreen = (float)(startColor >> 8 & 255) / 255.0F;
-        float startBlue = (float)(startColor & 255) / 255.0F;
-        float endAlpha = (float)(endColor >> 24 & 255) / 255.0F;
-        float endRed = (float)(endColor >> 16 & 255) / 255.0F;
-        float endGreen = (float)(endColor >> 8 & 255) / 255.0F;
-        float endBlue = (float)(endColor & 255) / 255.0F;
+        float startAlpha = (float) (startColor >> 24 & 255) / 255.0F;
+        float startRed = (float) (startColor >> 16 & 255) / 255.0F;
+        float startGreen = (float) (startColor >> 8 & 255) / 255.0F;
+        float startBlue = (float) (startColor & 255) / 255.0F;
+        float endAlpha = (float) (endColor >> 24 & 255) / 255.0F;
+        float endRed = (float) (endColor >> 16 & 255) / 255.0F;
+        float endGreen = (float) (endColor >> 8 & 255) / 255.0F;
+        float endBlue = (float) (endColor & 255) / 255.0F;
 
         GlStateManager.disableTexture2D();
         GlStateManager.enableBlend();
