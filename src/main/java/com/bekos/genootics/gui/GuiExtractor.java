@@ -5,10 +5,11 @@ import com.bekos.genootics.machines.common.ContainerExtractor;
 import com.bekos.genootics.tile.TileExtractor;
 import net.minecraft.util.ResourceLocation;
 
+
 public class GuiExtractor extends GuiMachine {
 
     public GuiExtractor(TileExtractor tileEntity, ContainerExtractor container) {
-        super(175, 166, tileEntity, container);
+        super(176, 166, tileEntity, container);
     }
 
 

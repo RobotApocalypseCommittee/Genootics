@@ -39,8 +39,10 @@ public class WidgetGeneticViewer extends Widget {
     public void draw(int mouseX, int mouseY) {
         int x = scaledLocation.x;
         int y = scaledLocation.y;
+        Renderer.drawBoundingEmbeddedBox(x, y, width, height);
 
         int len = this.genes.size();
+        System.out.println(this.genes);
         if (len > 0) {
             // This will lose some space at the bottom, naturally
             int pixels = (int) ((float) height / (float) len);

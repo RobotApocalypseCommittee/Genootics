@@ -39,7 +39,7 @@ public class GuiModularScreen extends GuiScreen implements IGuiModular {
         ScaledResolution resolution = new ScaledResolution(Minecraft.getMinecraft());
         int scaledHeight = resolution.getScaledHeight();
         int scaledWidth = resolution.getScaledWidth();
-        Point origin = new Point((scaledWidth - xSize)/2, (scaledHeight - ySize)/2);
+        Point origin = new Point((scaledWidth - xSize) / 2, (scaledHeight - ySize) / 2);
         System.out.print("Origin: ");
         System.out.print(origin.x);
         System.out.print(", ");
@@ -58,9 +58,10 @@ public class GuiModularScreen extends GuiScreen implements IGuiModular {
 
         layout();
     }
+
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        if (this.mc == null){
+        if (this.mc == null) {
             this.mc = Minecraft.getMinecraft();
         }
         drawDefaultBackground();
@@ -77,7 +78,7 @@ public class GuiModularScreen extends GuiScreen implements IGuiModular {
 
         children.stream()
                 .filter(e -> e instanceof IWidgetKeyInteractable)
-                .map(e -> (IWidgetKeyInteractable)e)
+                .map(e -> (IWidgetKeyInteractable) e)
                 .forEach(e -> e.keyPress(keyCode, typedChar));
     }
 }

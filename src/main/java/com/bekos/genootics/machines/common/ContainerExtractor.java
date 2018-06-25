@@ -2,21 +2,27 @@ package com.bekos.genootics.machines.common;
 
 import com.bekos.genootics.tile.TileExtractor;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
+import java.util.Arrays;
+
 public class ContainerExtractor extends ContainerMachine<TileExtractor> {
     public ContainerExtractor(IInventory playerInventory, TileExtractor tileExtractor) {
         super(playerInventory, tileExtractor);
-        System.out.print(this.te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null).getSlots());
     }
 
     @Override
     protected void addOwnSlots() {
         IItemHandler itemHandler = this.te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
         // Redstone
-        this.addSlotToContainer(new SlotItemHandler(itemHandler, 0, 25, 37));
+        this.addSlotToContainer(new SlotRestrictedItems(itemHandler, 0, 25, 37, Arrays.asList(
+                Item.REGISTRY.getObject(new ResourceLocation("minecraft:redstone")),
+                Item.REGISTRY.getObject(new ResourceLocation("minecraft:redstone_block"))
+        )));
         // Syringe
         this.addSlotToContainer(new SlotItemHandler(itemHandler, 1, 56, 17));
         // Empty Storage

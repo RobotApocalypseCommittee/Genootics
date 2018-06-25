@@ -14,3 +14,5 @@ commands.genootics.summon_gm.outOfWorld=Cannot summon the object out of the worl
 commands.genootics.summon_gm.failed=Unable to summon object
 commands.genootics.summon_gm.success=Object successfully summoned
 commands.genootics.summon_gm.tagError=Gene formatting invalid! Usage: {Genes:[{Gene:MovementSpeed,Value:0.4},{...},...]}
+
+gene.genootics.health.name=Max Health
