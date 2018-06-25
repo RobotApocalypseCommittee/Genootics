@@ -9,9 +9,11 @@ public interface IGenetics {
     boolean hasBeenEdited();
 
     boolean hasGene(Gene gene, GeneticsSide side);
+
     Double getGeneValue(Gene gene, GeneticsSide side);
 
     List<Map<Gene, Double>> getAllGenes();
+
     List<Map<Gene, Double>> getAllGenesDominances();
 
     Map<Gene, Double> getGenes(GeneticsSide side);
@@ -19,6 +21,7 @@ public interface IGenetics {
     Map<Gene, Double> getGenesDominance(GeneticsSide side);
 
     void setGenes(Map<Gene, Double> genes, Map<Gene, Double> geneDominance, GeneticsSide side);
+
     void setAllGenes(List<Map<Gene, Double>> genes, List<Map<Gene, Double>> geneDominance);
 
     void setGM(boolean isGM);

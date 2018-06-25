@@ -7,7 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 
-
 import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.Set;

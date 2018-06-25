@@ -27,6 +27,7 @@ public abstract class Widget {
         this.width = width;
         this.height = height;
     }
+
     public Widget layout(Point location) {
         this.scaledLocation = location;
 
@@ -40,7 +41,7 @@ public abstract class Widget {
         children.forEach(e -> e.draw(mouseX, mouseY));
     }
 
-    public void drawTooltip(int mouseX, int mouseY){
+    public void drawTooltip(int mouseX, int mouseY) {
         children.forEach(e -> e.drawTooltip(mouseX, mouseY));
     }
 }

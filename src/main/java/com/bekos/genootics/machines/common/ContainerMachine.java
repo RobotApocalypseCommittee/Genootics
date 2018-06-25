@@ -29,16 +29,13 @@ public abstract class ContainerMachine<TE extends TileMachine> extends Container
 
     protected void addPlayerSlots(IInventory playerInventory) {
 
-        for (int i = 0; i < 3; ++i)
-        {
-            for (int j = 0; j < 9; ++j)
-            {
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 9; ++j) {
                 this.addSlotToContainer(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, 84 + i * 18));
             }
         }
 
-        for (int k = 0; k < 9; ++k)
-        {
+        for (int k = 0; k < 9; ++k) {
             this.addSlotToContainer(new Slot(playerInventory, k, 8 + k * 18, 142));
         }
     }
@@ -115,8 +112,12 @@ public abstract class ContainerMachine<TE extends TileMachine> extends Container
     @SideOnly(Side.CLIENT)
     public void updateProgressBar(int id, int data) {
         switch (id) {
-            case 0: ((EnergyHandler) te.getCapability(CapabilityEnergy.ENERGY, null)).setEnergyStored(data); break;
-            case 1: te.setTicksRemaining(data); break;
+            case 0:
+                ((EnergyHandler) te.getCapability(CapabilityEnergy.ENERGY, null)).setEnergyStored(data);
+                break;
+            case 1:
+                te.setTicksRemaining(data);
+                break;
         }
     }
 }

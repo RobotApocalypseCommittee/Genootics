@@ -59,7 +59,7 @@ public class ItemSyringe extends ItemBase {
 
     private void setBloodEntity(ItemStack stack, EntityLivingBase entity) {
         ResourceLocation entityResource = EntityList.getKey(entity);
-        getTagCompoundSafe(stack).setString("Entity", entityResource == null ? "player:"+entity.getName() : entityResource.toString());
+        getTagCompoundSafe(stack).setString("Entity", entityResource == null ? "player:" + entity.getName() : entityResource.toString());
     }
 
     private void setBloodGeneInformation(ItemStack stack, EntityLivingBase entity) {
@@ -73,6 +73,7 @@ public class ItemSyringe extends ItemBase {
         NBTTagList allGenesDom = NBTParser.convertMapListToNBT(entityGenetics.getAllGenesDominances());
         compound.setTag("AllGenesDom", allGenesDom);
     }
+
     public List<NBTTagList> getBloodGeneInformation(ItemStack stack) {
         if (!isBloody(stack)) {
             return new ArrayList<>();
@@ -121,8 +122,7 @@ public class ItemSyringe extends ItemBase {
 
     @Override
     public boolean itemInteractionForEntity(ItemStack itemStack, EntityPlayer playerIn, EntityLivingBase entityIn, EnumHand hand) {
-        if (entityIn.world.isRemote)
-        {
+        if (entityIn.world.isRemote) {
             return false;
         }
 

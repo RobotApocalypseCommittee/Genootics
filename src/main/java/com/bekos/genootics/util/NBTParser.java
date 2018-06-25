@@ -8,7 +8,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class NBTParser {
 
@@ -16,6 +19,7 @@ public abstract class NBTParser {
         IForgeRegistry<Gene> registry = GameRegistry.findRegistry(Gene.class);
         return registry.getValue(new ResourceLocation(key));
     }
+
     public static String getKeyForGene(Gene gene) {
         return gene.getRegistryName().toString();
     }

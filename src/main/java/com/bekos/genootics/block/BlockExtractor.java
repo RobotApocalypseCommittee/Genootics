@@ -14,7 +14,6 @@ public class BlockExtractor extends BlockMachine {
     }
 
 
-
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {

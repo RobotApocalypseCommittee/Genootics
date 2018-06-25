@@ -19,11 +19,11 @@ public class GuiPetri extends GuiModularScreen {
             "textures/gui/petri.png");
 
     private List<Map<Gene, Double>> genes = new ArrayList<>(Arrays.asList(new HashMap<>(), new HashMap<>()));
-    private List<Map<Gene , Double>> genesDom = new ArrayList<>(Arrays.asList(new HashMap<>(), new HashMap<>()));
+    private List<Map<Gene, Double>> genesDom = new ArrayList<>(Arrays.asList(new HashMap<>(), new HashMap<>()));
 
     public GuiPetri(ItemStack petriDish) {
         super(175, 166);
-        addWidget(new WidgetTexture(175, 166, background, 0, 0), new Point(0,0));
+        addWidget(new WidgetTexture(175, 166, background, 0, 0), new Point(0, 0));
         List<NBTTagList> geneInfo = BasePetriDish.getGenes(petriDish);
         if (!geneInfo.get(0).hasNoTags()) {
             genes = NBTParser.convertNBTToMapList(geneInfo.get(0));

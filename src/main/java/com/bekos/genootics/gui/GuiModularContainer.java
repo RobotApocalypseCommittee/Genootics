@@ -27,7 +27,6 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import org.lwjgl.opengl.GL11;
 
-
 import java.io.IOException;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -37,6 +36,7 @@ public abstract class GuiModularContainer extends GuiContainer implements IGuiMo
     protected Set<Widget> children = new LinkedHashSet<>();
     public int xSize;
     public int ySize;
+
     public GuiModularContainer(int width, int height, Container container) {
         super(container);
         this.xSize = width;
@@ -56,7 +56,7 @@ public abstract class GuiModularContainer extends GuiContainer implements IGuiMo
         ScaledResolution resolution = new ScaledResolution(Minecraft.getMinecraft());
         int scaledHeight = resolution.getScaledHeight();
         int scaledWidth = resolution.getScaledWidth();
-        Point origin = new Point((scaledWidth - xSize)/2, (scaledHeight - ySize)/2);
+        Point origin = new Point((scaledWidth - xSize) / 2, (scaledHeight - ySize) / 2);
         System.out.print("Origin: ");
         System.out.print(origin.x);
         System.out.print(", ");
@@ -95,7 +95,7 @@ public abstract class GuiModularContainer extends GuiContainer implements IGuiMo
 
         children.stream()
                 .filter(e -> e instanceof IWidgetKeyInteractable)
-                .map(e -> (IWidgetKeyInteractable)e)
+                .map(e -> (IWidgetKeyInteractable) e)
                 .forEach(e -> e.keyPress(keyCode, typedChar));
     }
 }

@@ -35,9 +35,9 @@ public class TileExtractor extends TileMachine {
     }
 
     @Override
-    public boolean canWork(){
+    public boolean canWork() {
         ItemStack syringeStack = this.itemStackHandler.getStackInSlot(1);
-        return super.canWork() && ( !syringeStack.isEmpty() &&
+        return super.canWork() && (!syringeStack.isEmpty() &&
                 ((ItemSyringe) syringeStack.getItem()).isBloody(syringeStack) &&
                 !this.itemStackHandler.getStackInSlot(2).isEmpty() &&
                 this.itemStackHandler.getStackInSlot(3).isEmpty()

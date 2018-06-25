@@ -8,14 +8,14 @@ import net.minecraftforge.items.SlotItemHandler;
 public class SlotGeneticMedium extends SlotItemHandler {
 
     private boolean allowsEmpty;
+
     public SlotGeneticMedium(IItemHandler itemHandler, int index, int xPosition, int yPosition, boolean allowsEmpty) {
         super(itemHandler, index, xPosition, yPosition);
         this.allowsEmpty = allowsEmpty;
     }
 
     @Override
-    public boolean isItemValid(ItemStack stack)
-    {
+    public boolean isItemValid(ItemStack stack) {
         return (stack.getItem() instanceof BasePetriDish && !(!allowsEmpty && ((BasePetriDish) stack.getItem()).isEmpty(stack)));
     }
 

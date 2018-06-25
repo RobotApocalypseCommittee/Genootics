@@ -3,16 +3,16 @@ package com.bekos.genootics.gui.helpers;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,12 +23,13 @@ public class Renderer {
 
     public static void drawEmbeddedBox(int x, int y, int width, int height) {
         drawRect(x, y, width, height, Color.decode("#8B8B8B"));
-        drawRect(x, y, width-1, height-1, Color.decode("#373737"));
-        drawRect(x+1, y+1, width-1, height-1, Color.decode("#FFFFFF"));
-        drawRect(x+1, y+1, width-2, height-2, Color.decode("#8B8B8B"));
+        drawRect(x, y, width - 1, height - 1, Color.decode("#373737"));
+        drawRect(x + 1, y + 1, width - 1, height - 1, Color.decode("#FFFFFF"));
+        drawRect(x + 1, y + 1, width - 2, height - 2, Color.decode("#8B8B8B"));
     }
+
     public static void drawBoundingEmbeddedBox(int x, int y, int width, int height) {
-        drawEmbeddedBox(x-1, y-1, width+2, height+2);
+        drawEmbeddedBox(x - 1, y - 1, width + 2, height + 2);
     }
 
     public static boolean isWithinBounds(int x, int y, int minX, int minY, int maxX, int maxY) {
@@ -46,10 +47,10 @@ public class Renderer {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.getBuffer();
         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-        buffer.pos((double)x, (double)(y + height), 0).tex((double)((float)u * f), (double)((float)(v + height) * f1)).endVertex();
-        buffer.pos((double)(x + width), (double)(y + height), 0).tex((double)((float)(u + width) * f), (double)((float)(v + height) * f1)).endVertex();
-        buffer.pos((double)(x + width), (double)y, 0).tex((double)((float)(u + width) * f), (double)((float)v * f1)).endVertex();
-        buffer.pos((double)x, (double)y, 0).tex((double)((float)u * f), (double)((float)v * f1)).endVertex();
+        buffer.pos((double) x, (double) (y + height), 0).tex((double) ((float) u * f), (double) ((float) (v + height) * f1)).endVertex();
+        buffer.pos((double) (x + width), (double) (y + height), 0).tex((double) ((float) (u + width) * f), (double) ((float) (v + height) * f1)).endVertex();
+        buffer.pos((double) (x + width), (double) y, 0).tex((double) ((float) (u + width) * f), (double) ((float) v * f1)).endVertex();
+        buffer.pos((double) x, (double) y, 0).tex((double) ((float) u * f), (double) ((float) v * f1)).endVertex();
         tessellator.draw();
     }
 
@@ -65,10 +66,10 @@ public class Renderer {
         GlStateManager.enableAlpha();
         GlStateManager.tryBlendFuncSeparate(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, 1, 0);
         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR);
-        buffer.pos((double)x, (double)y + height, zLevel).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
-        buffer.pos((double)x + width, (double)y + height, zLevel).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
-        buffer.pos((double)x + width, (double)y, zLevel).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
-        buffer.pos((double)x, (double)y, zLevel).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
+        buffer.pos((double) x, (double) y + height, zLevel).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
+        buffer.pos((double) x + width, (double) y + height, zLevel).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
+        buffer.pos((double) x + width, (double) y, zLevel).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
+        buffer.pos((double) x, (double) y, zLevel).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
         tessellator.draw();
         GlStateManager.enableTexture2D();
         GlStateManager.disableBlend();
@@ -193,7 +194,7 @@ public class Renderer {
 
             for (int lineNumber = 0; lineNumber < lines.size(); ++lineNumber) {
                 String line = lines.get(lineNumber);
-                font.drawStringWithShadow(line, (float)tooltipX, (float)tooltipY, -1);
+                font.drawStringWithShadow(line, (float) tooltipX, (float) tooltipY, -1);
 
                 if (lineNumber + 1 == titleLinesCount) {
                     tooltipY += 2;
@@ -246,10 +247,10 @@ public class Renderer {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder buffer = tessellator.getBuffer();
         buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
-        buffer.pos((double)x, (double)(y + height), 0).tex(minU, maxV).endVertex();
-        buffer.pos((double)(x + width), (double)(y + height), 0).tex(maxU, maxV).endVertex();
-        buffer.pos((double)(x + width), (double)y, 0).tex(maxU, minV).endVertex();
-        buffer.pos((double)x, (double)y, 0).tex(minU, minV).endVertex();
+        buffer.pos((double) x, (double) (y + height), 0).tex(minU, maxV).endVertex();
+        buffer.pos((double) (x + width), (double) (y + height), 0).tex(maxU, maxV).endVertex();
+        buffer.pos((double) (x + width), (double) y, 0).tex(maxU, minV).endVertex();
+        buffer.pos((double) x, (double) y, 0).tex(minU, minV).endVertex();
         tessellator.draw();
     }
 

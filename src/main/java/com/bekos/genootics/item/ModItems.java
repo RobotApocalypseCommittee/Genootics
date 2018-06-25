@@ -25,7 +25,7 @@ public class ModItems {
                 itemPetriIron,
                 itemPetriStone,
                 itemPetriDiamond
-       );
+        );
     }
 
     public static void registerModels() {

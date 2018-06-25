@@ -16,7 +16,7 @@ public abstract class EntityHandlerGeneric {
         // than the base, whereas the health itself can be lower than the default.
         // "value" is a multiplier of health (and max health)
 
-        priorCompound.setDouble("Health", priorCompound.getDouble("Health")*value);
+        priorCompound.setDouble("Health", priorCompound.getDouble("Health") * value);
 
         NBTTagList attributes = priorCompound.getTagList("Attributes", Constants.NBT.TAG_COMPOUND);
         Iterator<NBTBase> iterator = attributes.iterator();
@@ -26,7 +26,7 @@ public abstract class EntityHandlerGeneric {
             NBTTagCompound compound = (NBTTagCompound) iterator.next();
 
             if (compound.getString("Name").equals("generic.maxHealth")) {
-                if (update = compound.getDouble("Base") < value*priorCompound.getDouble("Health")) {
+                if (update = compound.getDouble("Base") < value * priorCompound.getDouble("Health")) {
                     iterator.remove();
                 }
                 break;
@@ -65,7 +65,7 @@ public abstract class EntityHandlerGeneric {
 
         NBTTagCompound newCompound = new NBTTagCompound();
         newCompound.setString("Name", "generic.movementSpeed");
-        newCompound.setDouble("Base", value*priorValue);
+        newCompound.setDouble("Base", value * priorValue);
 
         attributes.appendTag(newCompound);
 

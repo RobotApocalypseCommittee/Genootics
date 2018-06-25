@@ -19,9 +19,11 @@ public class Point {
         this.y += dy;
         return this;
     }
+
     public Point translate(Point point) {
         return this.translate(point.x, point.y);
     }
+
     public Point scale(float scaleFactor) {
         this.x *= scaleFactor;
         this.y *= scaleFactor;

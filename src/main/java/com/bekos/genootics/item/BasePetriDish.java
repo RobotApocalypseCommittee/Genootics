@@ -23,6 +23,7 @@ import java.util.Map;
 
 public abstract class BasePetriDish extends ItemBase {
     public int level;
+
     public BasePetriDish(String name, int slots, Double degradation, int level) {
         super(name);
         this.level = level;

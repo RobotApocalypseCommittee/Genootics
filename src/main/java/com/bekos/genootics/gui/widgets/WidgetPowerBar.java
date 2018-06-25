@@ -20,7 +20,6 @@ package com.bekos.genootics.gui.widgets;
 
 import com.bekos.genootics.GenooticsMod;
 import com.bekos.genootics.gui.helpers.Renderer;
-import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.energy.CapabilityEnergy;
@@ -31,6 +30,7 @@ import java.awt.*;
 public class WidgetPowerBar extends Widget {
     TileEntity tile;
     private static final ResourceLocation widgetTexture = new ResourceLocation(GenooticsMod.MODID, "textures/gui/guiwidgets.png");
+
     public WidgetPowerBar(int width, int height, TileEntity tileEntity) {
         super(width, height);
         this.tile = tileEntity;
@@ -41,10 +41,10 @@ public class WidgetPowerBar extends Widget {
         super.draw(mouseX, mouseY);
         IEnergyStorage capability = this.tile.getCapability(CapabilityEnergy.ENERGY, null);
         int bar_height = Math.round(
-                ((float) capability.getEnergyStored()/(float) capability.getMaxEnergyStored()) * (float) height
+                ((float) capability.getEnergyStored() / (float) capability.getMaxEnergyStored()) * (float) height
         );
         Renderer.drawBoundingEmbeddedBox(this.scaledLocation.x, this.scaledLocation.y, width, height);
-        Renderer.drawGradientRect(0, this.scaledLocation.x,this.scaledLocation.y, this.scaledLocation.x+width, this.scaledLocation.y+height, Renderer.toARGB(Color.GREEN), Renderer.toARGB(Color.RED));
-        Renderer.drawRect(scaledLocation.x, scaledLocation.y, width, (height-bar_height), Color.decode("#8B8B8B"));
+        Renderer.drawGradientRect(0, this.scaledLocation.x, this.scaledLocation.y, this.scaledLocation.x + width, this.scaledLocation.y + height, Renderer.toARGB(Color.GREEN), Renderer.toARGB(Color.RED));
+        Renderer.drawRect(scaledLocation.x, scaledLocation.y, width, (height - bar_height), Color.decode("#8B8B8B"));
     }
 }

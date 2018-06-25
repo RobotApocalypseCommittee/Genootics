@@ -18,7 +18,7 @@ import java.util.Map;
 public class GeneEvents {
     @SubscribeEvent
     public static void onEntitySpawn(EntityJoinWorldEvent event) {
-        if(event.getEntity() instanceof EntityLiving && !(event.getEntity() instanceof EntityPlayer)) {
+        if (event.getEntity() instanceof EntityLiving && !(event.getEntity() instanceof EntityPlayer)) {
             EntityLiving entity = (EntityLiving) event.getEntity();
 
             if (!entity.getCapability(GeneticsProvider.GENETICS_CAPABILITY, null).isGM()) {

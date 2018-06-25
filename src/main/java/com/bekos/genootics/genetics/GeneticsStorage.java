@@ -38,7 +38,7 @@ public class GeneticsStorage implements Capability.IStorage<IGenetics> {
     public void readNBT(Capability<IGenetics> capability, IGenetics instance, EnumFacing side, NBTBase nbt) {
         NBTTagCompound compound = (NBTTagCompound) nbt;
 
-        if(!compound.getBoolean("IsGM")) {
+        if (!compound.getBoolean("IsGM")) {
             instance.setGM(false);
         } else {
             instance.setGM(true);

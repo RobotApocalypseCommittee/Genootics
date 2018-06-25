@@ -33,18 +33,24 @@ public class GeneticsBase implements IGenetics {
     @Override
     public boolean hasGene(Gene gene, GeneticsSide side) {
         switch (side) {
-            case LEFT: return genesLeft.containsKey(gene);
-            case RIGHT: return genesRight.containsKey(gene);
-            default: return genesExpressed.containsKey(gene);
+            case LEFT:
+                return genesLeft.containsKey(gene);
+            case RIGHT:
+                return genesRight.containsKey(gene);
+            default:
+                return genesExpressed.containsKey(gene);
         }
     }
 
     @Override
     public Double getGeneValue(Gene gene, GeneticsSide side) {
         switch (side) {
-            case LEFT: return genesLeft.get(gene);
-            case RIGHT: return genesRight.get(gene);
-            default: return genesExpressed.get(gene);
+            case LEFT:
+                return genesLeft.get(gene);
+            case RIGHT:
+                return genesRight.get(gene);
+            default:
+                return genesExpressed.get(gene);
         }
     }
 
@@ -73,9 +79,12 @@ public class GeneticsBase implements IGenetics {
 
     private Map<Gene, Double> getGeneStringDoubleMap(GeneticsSide side, Map<Gene, Double> genesLeft, Map<Gene, Double> genesRight, Map<Gene, Double> genesExpressed) {
         switch (side) {
-            case LEFT: return genesLeft;
-            case RIGHT: return genesRight;
-            default: return genesExpressed;
+            case LEFT:
+                return genesLeft;
+            case RIGHT:
+                return genesRight;
+            default:
+                return genesExpressed;
         }
     }
 
@@ -108,7 +117,7 @@ public class GeneticsBase implements IGenetics {
 
     @Override
     public void setAllGenes(List<Map<Gene, Double>> genes, List<Map<Gene, Double>> geneDominance) {
-        for (int i=0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             if (!(genes.get(i).keySet().equals(geneDominance.get(i).keySet()))) {
                 throw new GeneticsMismatchException("Gene and Gene Dominance maps must refer to the same genes (the same keys)");
             }
@@ -165,33 +174,33 @@ public class GeneticsBase implements IGenetics {
             if (genesRight.containsKey(gene.getKey())) {
                 if (Objects.equals(genesLeftDominance.get(gene.getKey()), genesRightDominance.get((gene.getKey())))) {
                     if (random.nextDouble() > 0.5) {
-                        resultantGenes.put(gene.getKey(), gene.getValue()*(0.9 + random.nextDouble() * (1.1-0.9)));
-                        resultantGenesDominance.put(gene.getKey(), genesLeftDominance.get(gene.getKey())*(0.9 + random.nextDouble() * (1.1-0.9)));
+                        resultantGenes.put(gene.getKey(), gene.getValue() * (0.9 + random.nextDouble() * (1.1 - 0.9)));
+                        resultantGenesDominance.put(gene.getKey(), genesLeftDominance.get(gene.getKey()) * (0.9 + random.nextDouble() * (1.1 - 0.9)));
                     } else {
-                        resultantGenes.put(gene.getKey(), genesRight.get(gene.getKey())*(0.9 + random.nextDouble() * (1.1-0.9)));
-                        resultantGenesDominance.put(gene.getKey(), genesRightDominance.get(gene.getKey())*(0.9 + random.nextDouble() * (1.1-0.9)));
+                        resultantGenes.put(gene.getKey(), genesRight.get(gene.getKey()) * (0.9 + random.nextDouble() * (1.1 - 0.9)));
+                        resultantGenesDominance.put(gene.getKey(), genesRightDominance.get(gene.getKey()) * (0.9 + random.nextDouble() * (1.1 - 0.9)));
                     }
                 } else if (genesLeftDominance.get(gene.getKey()) > genesRightDominance.get(gene.getKey())) {
-                    resultantGenes.put(gene.getKey(), gene.getValue()*(0.9 + random.nextDouble() * (1.1-0.9)));
-                    resultantGenesDominance.put(gene.getKey(), genesLeftDominance.get(gene.getKey())*(0.9 + random.nextDouble() * (1.1-0.9)));
+                    resultantGenes.put(gene.getKey(), gene.getValue() * (0.9 + random.nextDouble() * (1.1 - 0.9)));
+                    resultantGenesDominance.put(gene.getKey(), genesLeftDominance.get(gene.getKey()) * (0.9 + random.nextDouble() * (1.1 - 0.9)));
                 } else {
-                    resultantGenes.put(gene.getKey(), genesRight.get(gene.getKey())*(0.9 + random.nextDouble() * (1.1-0.9)));
-                    resultantGenesDominance.put(gene.getKey(), genesRightDominance.get(gene.getKey())*(0.9 + random.nextDouble() * (1.1-0.9)));
+                    resultantGenes.put(gene.getKey(), genesRight.get(gene.getKey()) * (0.9 + random.nextDouble() * (1.1 - 0.9)));
+                    resultantGenesDominance.put(gene.getKey(), genesRightDominance.get(gene.getKey()) * (0.9 + random.nextDouble() * (1.1 - 0.9)));
                 }
 
                 copyOfGenesRight.remove(gene.getKey());
             } else {
                 if (random.nextFloat() < 0.7) {
-                    resultantGenes.put(gene.getKey(), gene.getValue()*(0.7 + random.nextDouble() * (1.0-0.7)));
-                    resultantGenesDominance.put(gene.getKey(), genesLeftDominance.get(gene.getKey())*(0.7 + random.nextDouble() * (1.0-0.7)));
+                    resultantGenes.put(gene.getKey(), gene.getValue() * (0.7 + random.nextDouble() * (1.0 - 0.7)));
+                    resultantGenesDominance.put(gene.getKey(), genesLeftDominance.get(gene.getKey()) * (0.7 + random.nextDouble() * (1.0 - 0.7)));
                 }
             }
         }
 
         for (Map.Entry<Gene, Double> gene : copyOfGenesRight.entrySet()) {
             if (random.nextFloat() < 0.7) {
-                resultantGenes.put(gene.getKey(), gene.getValue()*(0.7 + random.nextDouble() * (1.0-0.7)));
-                resultantGenesDominance.put(gene.getKey(), genesRightDominance.get(gene.getKey())*(0.7 + random.nextDouble() * (1.0-0.7)));
+                resultantGenes.put(gene.getKey(), gene.getValue() * (0.7 + random.nextDouble() * (1.0 - 0.7)));
+                resultantGenesDominance.put(gene.getKey(), genesRightDominance.get(gene.getKey()) * (0.7 + random.nextDouble() * (1.0 - 0.7)));
             }
         }
 

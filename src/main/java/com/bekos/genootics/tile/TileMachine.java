@@ -20,14 +20,14 @@ public abstract class TileMachine extends TileEntity implements ITickable {
     private EnergyHandler energyStorage;
     protected ItemStackHandler itemStackHandler;
 
-    public TileMachine(int itemSize, int capacity, int maxTransfer, int energyPerTick){
+    public TileMachine(int itemSize, int capacity, int maxTransfer, int energyPerTick) {
         super();
         this.energyPerTick = energyPerTick;
         ticksRemaining = 0;
         this.energyStorage = new EnergyHandler(capacity, maxTransfer);
-        this.SIZE = itemSize;
+        SIZE = itemSize;
         // This item handler will hold our nine inventory slots
-        this.itemStackHandler = new ItemStackHandler(this.SIZE) {
+        this.itemStackHandler = new ItemStackHandler(SIZE) {
             @Override
             protected void onContentsChanged(int slot) {
                 // We need to tell the tile entity that something has changed so
@@ -59,7 +59,7 @@ public abstract class TileMachine extends TileEntity implements ITickable {
         if (compound.hasKey("items")) {
             itemStackHandler.deserializeNBT((NBTTagCompound) compound.getTag("items"));
         }
-        if (compound.hasKey("energy")){
+        if (compound.hasKey("energy")) {
             energyStorage.deserializeNBT((NBTTagCompound) compound.getTag("energy"));
         }
         if (compound.hasKey("ticksRemaining")) {

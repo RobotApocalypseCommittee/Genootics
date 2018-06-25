@@ -13,14 +13,13 @@ public class GuiExtractor extends GuiMachine {
     }
 
 
-
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         super.drawGuiContainerBackgroundLayer(partialTicks, mouseX, mouseY);
 
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
-        int l = this.tile.getTicksRemaining() == 0 ? 0 : 24-this.tile.getTicksRemaining()*24/200;
+        int l = this.tile.getTicksRemaining() == 0 ? 0 : 24 - this.tile.getTicksRemaining() * 24 / 200;
 
         drawTexturedModalRect(i + 79, j + 34, 176, 14, l + 1, 16);
 

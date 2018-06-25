@@ -3,7 +3,6 @@ package com.bekos.genootics.gui.widgets;
 
 import com.bekos.genootics.genetics.Gene;
 import com.bekos.genootics.gui.helpers.Renderer;
-
 import net.minecraft.util.text.TextFormatting;
 
 import java.awt.*;
@@ -48,10 +47,10 @@ public class WidgetGeneticViewer extends Widget {
             int pixels = (int) ((float) height / (float) len);
             geneOrder.clear();
             int i;
-            for (Gene gene: this.genes.keySet()) {
+            for (Gene gene : this.genes.keySet()) {
                 geneOrder.add(gene);
-                i = geneOrder.size()-1;
-                Renderer.drawRect(x, y+(i*pixels), width, pixels, gene.getColor());
+                i = geneOrder.size() - 1;
+                Renderer.drawRect(x, y + (i * pixels), width, pixels, gene.getColor());
             }
         }
     }
@@ -59,11 +58,11 @@ public class WidgetGeneticViewer extends Widget {
     @Override
     public void drawTooltip(int mouseX, int mouseY) {
         if (Renderer.isWithinBounds(mouseX, mouseY, this.scaledLocation.x, this.scaledLocation.y,
-                this.scaledLocation.x+ width, this.scaledLocation.y+height)) {
-            int i = (int) (((float)(mouseY - this.scaledLocation.y) / (float) height) * (float) this.genes.size());
+                this.scaledLocation.x + width, this.scaledLocation.y + height)) {
+            int i = (int) (((float) (mouseY - this.scaledLocation.y) / (float) height) * (float) this.genes.size());
             ArrayList<String> message = new ArrayList<>();
             message.add(geneOrder.get(i).getLocalisedName());
-            if (level > 0){
+            if (level > 0) {
                 message.add(TextFormatting.RED + genesDominance.get(geneOrder.get(i)).toString());
             }
             if (level > 1) {

@@ -11,6 +11,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 public class ModBlocks {
 
     public static BlockExtractor machineExtractor = new BlockExtractor();
+
     public static void register(IForgeRegistry<Block> registry) {
         registry.registerAll(
                 machineExtractor
