@@ -6,6 +6,9 @@ item.genootics.itemPetriDishWooden.name=Wooden Petri Dish
 item.genootics.itemPetriDishIron.name=Iron Petri Dish
 item.genootics.itemPetriDishStone.name=Stone Petri Dish
 item.genootics.itemPetriDishDiamond.name=Diamond Petri Dish
+item.genootics.restriction_enzyme.name=Restriction Enzyme
+item.genootics.ligase_enzyme.name=Ligase Enzyme
+
 
 tile.genootics.machineExtractor.name=DNA Extractor
 

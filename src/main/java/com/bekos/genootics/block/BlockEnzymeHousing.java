@@ -16,8 +16,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.bekos.genootics.gui.widgets;
+package com.bekos.genootics.block;
 
-public interface IWidgetKeyInteractable {
-    boolean keyPress(int keyCode, char keyChar);
+import com.bekos.genootics.tile.TileEnzymeHousing;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
+
+public class BlockEnzymeHousing extends BlockMachine {
+    public BlockEnzymeHousing() {
+        super("machineEnzymeHousing");
+    }
+
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new TileEnzymeHousing();
+    }
+
+    @Override
+    public boolean checkTileEntity(TileEntity te) {
+        return te instanceof TileEnzymeHousing;
+    }
 }

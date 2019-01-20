@@ -16,8 +16,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.bekos.genootics.gui.widgets;
+package com.bekos.genootics.tile;
 
-public interface IWidgetKeyInteractable {
-    boolean keyPress(int keyCode, char keyChar);
+public class TileEnzymeHousing extends TileMachine {
+    public static final int SIZE = 4;
+    private boolean isWorking;
+
+    public TileEnzymeHousing() {
+        super(SIZE, 10000, 500, 100);
+    }
+
+    @Override
+    public void update() {
+
+    }
 }

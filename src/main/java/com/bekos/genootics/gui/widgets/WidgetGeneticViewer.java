@@ -1,3 +1,21 @@
+/*
+ * Genootics Minecraft mod adding genetics to Minecraft
+ * Copyright (C) 2018  Robot Apocalypse Committee
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package com.bekos.genootics.gui.widgets;
 
 
@@ -9,6 +27,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import static java.lang.Math.round;
 
 public class WidgetGeneticViewer extends Widget {
 
@@ -41,7 +61,6 @@ public class WidgetGeneticViewer extends Widget {
         Renderer.drawBoundingEmbeddedBox(x, y, width, height);
 
         int len = this.genes.size();
-        System.out.println(this.genes);
         if (len > 0) {
             // This will lose some space at the bottom, naturally
             int pixels = (int) ((float) height / (float) len);
@@ -58,8 +77,9 @@ public class WidgetGeneticViewer extends Widget {
     @Override
     public void drawTooltip(int mouseX, int mouseY) {
         if (Renderer.isWithinBounds(mouseX, mouseY, this.scaledLocation.x, this.scaledLocation.y,
-                this.scaledLocation.x + width, this.scaledLocation.y + height)) {
-            int i = (int) (((float) (mouseY - this.scaledLocation.y) / (float) height) * (float) this.genes.size());
+                this.scaledLocation.x + width, this.scaledLocation.y + height) && this.genes.size() > 0) {
+            System.out.println(((float) (mouseY - this.scaledLocation.y) / (float) height));
+            int i = round(((float) (mouseY - this.scaledLocation.y) / (float) height) * (float) (this.genes.size() - 1));
             ArrayList<String> message = new ArrayList<>();
             message.add(geneOrder.get(i).getLocalisedName());
             if (level > 0) {

@@ -1,40 +1,45 @@
+/*
+ * Genootics Minecraft mod adding genetics to Minecraft
+ * Copyright (C) 2018  Robot Apocalypse Committee
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package com.bekos.genootics.tile;
 
 import com.bekos.genootics.tile.energy.EnergyHandler;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 
-public abstract class TileMachine extends TileEntity implements ITickable {
-    // Number of itemstacks stored.
-    public static int SIZE;
-    private int energyPerTick;
+
+public abstract class TileMachine extends TileItemDataSync implements ITickable {
     protected int ticksRemaining;
-
+    private int energyPerTick;
     private EnergyHandler energyStorage;
-    protected ItemStackHandler itemStackHandler;
 
     public TileMachine(int itemSize, int capacity, int maxTransfer, int energyPerTick) {
-        super();
+        super(itemSize);
         this.energyPerTick = energyPerTick;
         ticksRemaining = 0;
         this.energyStorage = new EnergyHandler(capacity, maxTransfer);
-        SIZE = itemSize;
-        // This item handler will hold our nine inventory slots
-        this.itemStackHandler = new ItemStackHandler(SIZE) {
-            @Override
-            protected void onContentsChanged(int slot) {
-                // We need to tell the tile entity that something has changed so
-                // that the chest contents is persisted
-                markDirty();
-            }
-        };
+    }
+
+    public int getTicksRemaining() {
+        return ticksRemaining;
     }
 
     public boolean canWork() {
@@ -45,20 +50,10 @@ public abstract class TileMachine extends TileEntity implements ITickable {
         this.energyStorage.extractEnergy(energyPerTick, false);
     }
 
-    public int getTicksRemaining() {
-        return ticksRemaining;
-    }
-
-    public void setTicksRemaining(int ticksRemaining) {
-        this.ticksRemaining = ticksRemaining;
-    }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        if (compound.hasKey("items")) {
-            itemStackHandler.deserializeNBT((NBTTagCompound) compound.getTag("items"));
-        }
         if (compound.hasKey("energy")) {
             energyStorage.deserializeNBT((NBTTagCompound) compound.getTag("energy"));
         }
@@ -70,31 +65,51 @@ public abstract class TileMachine extends TileEntity implements ITickable {
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
-        compound.setTag("items", itemStackHandler.serializeNBT());
         compound.setTag("energy", energyStorage.serializeNBT());
         compound.setInteger("ticksRemaining", this.ticksRemaining);
         return compound;
     }
 
-    public boolean canInteractWith(EntityPlayer playerIn) {
-        // If we are too far away from this tile entity you cannot use it
-        return !isInvalid() && playerIn.getDistanceSq(pos.add(0.5D, 0.5D, 0.5D)) <= 64D;
-    }
-
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || capability == CapabilityEnergy.ENERGY || super.hasCapability(capability, facing);
+        return capability == CapabilityEnergy.ENERGY || super.hasCapability(capability, facing);
     }
 
     @Override
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(itemStackHandler);
-        }
         if (capability == CapabilityEnergy.ENERGY) {
             return (T) energyStorage;
         }
         return super.getCapability(capability, facing);
+    }
+
+    @Override
+    public void setField(byte id, short value) {
+        switch (id) {
+            case 0:
+                energyStorage.setEnergyStored((int) value);
+                break;
+            case 1:
+                ticksRemaining = (int) value;
+                break;
+        }
+    }
+
+    @Override
+    public short getField(byte id) {
+        switch (id) {
+            case 0:
+                return (short) energyStorage.getEnergyStored();
+            case 1:
+                return (short) ticksRemaining;
+            default:
+                return -1;
+        }
+    }
+
+    @Override
+    public int getFieldsLength() {
+        return 2;
     }
 
 }

@@ -1,3 +1,21 @@
+/*
+ * Genootics Minecraft mod adding genetics to Minecraft
+ * Copyright (C) 2018  Robot Apocalypse Committee
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 package com.bekos.genootics.commands;
 
 import com.bekos.genootics.GenooticsMod;
@@ -23,6 +41,8 @@ import net.minecraft.world.chunk.storage.AnvilChunkLoader;
 import net.minecraftforge.common.util.Constants;
 
 import java.util.*;
+
+// Example usage /summon_gm Sheep {"Genes":[{"Gene":"genootics:health","Value":2.0},{"Gene":"genootics:movementSpeed","Value":1.0}]}
 
 public class CommandSummonGeneticallyModified extends CommandBase {
 
@@ -64,7 +84,7 @@ public class CommandSummonGeneticallyModified extends CommandBase {
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 1 || args.length > 5 || args.length == 3) {
-            throw new WrongUsageException("commands.genootics.summon_gm.usage", new Object[0]);
+            throw new WrongUsageException("commands.genootics.summon_gm.usage");
         }
 
         String entityName = args[0];
@@ -72,7 +92,7 @@ public class CommandSummonGeneticallyModified extends CommandBase {
         World world = sender.getEntityWorld();
 
         if (!world.isBlockLoaded(sender.getPosition())) {
-            throw new CommandException("commands.genootics.summon_gm.outOfWorld", new Object[0]);
+            throw new CommandException("commands.genootics.summon_gm.outOfWorld");
         }
 
         double x = sender.getPosition().getX();
@@ -93,7 +113,7 @@ public class CommandSummonGeneticallyModified extends CommandBase {
 
         if (entity == null)
         {
-            throw new CommandException("commands.genootics.summon_gm.failed", new Object[0]);
+            throw new CommandException("commands.genootics.summon_gm.failed");
         } else {
             entity.setLocationAndAngles(x, y, z, entity.rotationYaw, entity.rotationPitch);
 
@@ -111,10 +131,12 @@ public class CommandSummonGeneticallyModified extends CommandBase {
                         argPos = 4;
                     }
                     NBTTagCompound geneCompound = JsonToNBT.getTagFromJson(args[argPos]);
+                    System.out.println(geneCompound);
                     geneMap = NBTParser.convertNBTToMap(geneCompound.getTagList("Genes", Constants.NBT.TAG_COMPOUND));
+                    System.out.println(geneMap);
 
                 } catch (NBTException e) {
-                    throw new CommandException("commands.genootics.summon_gm.tagError", new Object[] {e.getMessage()});
+                    throw new CommandException("commands.genootics.summon_gm.tagError", e.getMessage());
                 }
 
                 List<Map<Gene, Double>> geneList = new ArrayList<>();
@@ -138,7 +160,7 @@ public class CommandSummonGeneticallyModified extends CommandBase {
 
             ((EntityLiving)entity).onInitialSpawn(world.getDifficultyForLocation(new BlockPos(entity)), null);
 
-            notifyCommandListener(sender, this, "commands.genootics.summon_gm.success", new Object[0]);
+            notifyCommandListener(sender, this, "commands.genootics.summon_gm.success");
         }
     }
 }
