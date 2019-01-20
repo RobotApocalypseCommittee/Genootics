@@ -1,6 +1,6 @@
 /*
  * Genootics Minecraft mod adding genetics to Minecraft
- * Copyright (C) 2018  Robot Apocalypse Committee
+ * Copyright (C) 2019  Robot Apocalypse Committee
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
