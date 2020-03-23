@@ -20,6 +20,7 @@ package com.bekos.genootics.tile;
 
 import com.bekos.genootics.item.BasePetriDish;
 import com.bekos.genootics.item.ItemSyringe;
+import net.minecraft.item.ItemRedstone;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 
@@ -28,29 +29,12 @@ import java.util.List;
 public class TileExtractor extends TileMachine {
     // Number of itemstacks stored.
     public static final int SIZE = 4;
-    private boolean isWorking;
 
     public TileExtractor() {
         super(SIZE, 10000, 500, 100);
     }
 
 
-    @Override
-    public void update() {
-        if (!this.world.isRemote) {
-            if (this.canWork()) {
-                System.out.println("CANWORK");
-                if (!this.isWorking) {
-                    this.ticksRemaining = 200;
-                    this.isWorking = true;
-                }
-                this.doWork();
-            } else {
-                this.isWorking = false;
-                this.ticksRemaining = 0;
-            }
-        }
-    }
 
     @Override
     public boolean canWork() {
@@ -83,6 +67,30 @@ public class TileExtractor extends TileMachine {
                 }
             } else {
                 this.ticksRemaining--;
+            }
+        }
+    }
+
+    @Override
+    public void update() {
+        if (!this.world.isRemote) {
+            if (this.canWork()) {
+                if (!this.isWorking) {
+                    this.ticksRemaining = 200;
+                    this.isWorking = true;
+                }
+                this.doWork();
+            } else {
+                this.isWorking = false;
+                this.ticksRemaining = 0;
+            }
+
+            if (!itemStackHandler.getStackInSlot(0).isEmpty() && itemStackHandler.getStackInSlot(0).getItem() instanceof ItemRedstone) {
+                System.out.println("Charge with redstone");
+                if (energyStorage.receiveEnergy(500, true) == 500) {
+                    energyStorage.receiveEnergy(500, false);
+                    itemStackHandler.extractItem(0, 1, false);
+                }
             }
         }
     }

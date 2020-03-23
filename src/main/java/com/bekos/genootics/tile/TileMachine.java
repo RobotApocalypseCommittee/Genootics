@@ -29,7 +29,8 @@ import net.minecraftforge.energy.CapabilityEnergy;
 public abstract class TileMachine extends TileItemDataSync implements ITickable {
     protected int ticksRemaining;
     private int energyPerTick;
-    private EnergyHandler energyStorage;
+    protected EnergyHandler energyStorage;
+    protected boolean isWorking;
 
     public TileMachine(int itemSize, int capacity, int maxTransfer, int energyPerTick) {
         super(itemSize);
@@ -111,5 +112,4 @@ public abstract class TileMachine extends TileItemDataSync implements ITickable 
     public int getFieldsLength() {
         return 2;
     }
-
 }
